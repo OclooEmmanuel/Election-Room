@@ -1,0 +1,29 @@
+{% extends "voting/base.html" %}
+
+{% block title %}Home | JHS Prefect Voting{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>{{ election.name|default:"JHS Prefect Election" }}</h1>
+    {% if election %}
+        {% if election.is_open %}
+            <p class="status open">The election is currently OPEN.</p>
+        {% else %}
+            <p class="status closed">The election is currently CLOSED.</p>
+        {% endif %}
+    {% else %}
+        <p class="status closed">No election has been set up yet.</p>
+    {% endif %}
+</div>
+
+<div class="card-grid">
+    <a class="card" href="{% url 'voting:vote' %}">
+        <h2>Cast Your Vote</h2>
+        <p>Enter your student ID and choose your preferred candidates.</p>
+    </a>
+    <a class="card" href="{% url 'voting:results' %}">
+        <h2>View Results</h2>
+        <p>See the current standings for each position.</p>
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+<label class="candidate-card">
+  <input class="candidate-input" type="radio" name="{{ widget.name }}" value="{{ widget.value|stringformat:'s' }}"{% include "django/forms/widgets/attrs.html" %} {% if widget.checked %}checked{% endif %}>
+  <span class="card-body">
+    {% if widget.photo_url %}<img class="card-photo" src="{{ widget.photo_url }}" alt="{{ widget.label }}">{% endif %}
+    <span class="card-name">{{ widget.label }}</span>
+  </span>
+</label>

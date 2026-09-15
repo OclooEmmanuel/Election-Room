@@ -1,0 +1,13 @@
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="{% url 'voting:home' %}">WESTLAND ELECTIONS ROOM</a>
+        <nav class="site-nav">
+            <a href="{% url 'voting:vote' %}">Vote</a>
+            <a href="{% url 'voting:results' %}">Results</a>
+            {% if request.user.is_authenticated and request.user.is_staff %}
+            <a href="{% url 'voting:dashboard' %}">Dashboard</a>
+            {% endif %}
+            <a href="/admin/">Admin</a>
+        </nav>
+    </div>
+</header>

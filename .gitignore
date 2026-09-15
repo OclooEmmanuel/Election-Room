@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Django
+db.sqlite3
+*.sqlite3
+/staticfiles/
+/media/
+
+# Licensed design assets (keep local only — Freepik license)
+/user-panel-template-infographic-dashboard/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/

@@ -1,0 +1,239 @@
+{% extends "voting/base.html" %}
+{% load static %}
+
+{% block title %}Voting Dashboard | JHS Prefect Voting{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
+{% block footer %}{% endblock %}
+{% block bodyclass %}blur-bg{% endblock %}
+
+{% block content %}
+<div class="panel-wrap">
+    <aside class="panel-sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-mark">✓</span>
+            <span>Westland Elections Room</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a class="active" href="{% url 'voting:dashboard' %}"><span class="icon">▨</span> Dashboard</a>
+            <a href="{% url 'voting:results' %}"><span class="icon">▥</span> Live results</a>
+            <a href="/admin/"><span class="icon">⚙</span> Admin panel</a>
+            <a href="{% url 'voting:vote' %}"><span class="icon">✎</span> Public voting</a>
+            <a href="/admin/logout/"><span class="icon">⇥</span> Sign out</a>
+        </nav>
+        <div class="sidebar-card">
+            <div class="who">{{ request.user.get_full_name|default:request.user.username }}</div>
+            Election administrator · staff only
+        </div>
+    </aside>
+
+    <div class="panel-main">
+        <div class="panel-topbar">
+            <div>
+                <h1>Election dashboard</h1>
+                <p class="sub">
+                    {% if election %}{{ election.name }}{% else %}No election set up yet{% endif %}
+                    — <span class="status-badge {% if election and election.is_open %}open{% else %}closed{% endif %}">{% if election and election.is_open %}OPENED{% else %}CLOSED{% endif %}</span>
+                </p>
+            </div>
+            <div class="topbar-actions">
+                <a class="btn btn-ghost" href="/admin/">Manage in admin</a>
+                <a class="btn btn-accent" href="{% url 'voting:results' %}">View live results</a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-value">{{ eligible }}</span>
+                    <span class="stat-icon">▤</span>
+                </div>
+                <span class="stat-label">Eligible voters</span>
+                <div class="stat-bar"><div style="width: 100%"></div></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-value">{{ voters }}</span>
+                    <span class="stat-icon">✓</span>
+                </div>
+                <span class="stat-label">Students who voted</span>
+                <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio voters eligible 100 %}{% else %}0{% endif %}%"></div></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-value">{{ total_votes }}</span>
+                    <span class="stat-icon">●</span>
+                </div>
+                <span class="stat-label">Total votes cast</span>
+                <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio total_votes eligible 100 %}{% else %}0{% endif %}%"></div></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-value">{{ turnout }}%</span>
+                    <span class="stat-icon">%</span>
+                </div>
+                <span class="stat-label">Voter turnout</span>
+                <div class="stat-bar"><div style="width: {{ turnout }}%"></div></div>
+            </div>
+        </div>
+
+        {% if request.user.is_superuser %}
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Bulk upload students</h2>
+                <span class="count-chip orange">CSV</span>
+            </div>
+            <p class="hint">Columns <code>student_id, full_name, gender, class_level</code>.
+                Gender (<code>M</code>/<code>F</code>) and class level are optional;
+                a header row is optional; existing student IDs are skipped.</p>
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'voting:dashboard' %}">
+                {% csrf_token %}
+                <div class="form-field file-field">
+                    <label for="id_csv_file">Students CSV</label>
+                    <input type="file" name="csv_file" id="id_csv_file" accept=".csv" required>
+                    {% for error in bulk_form.csv_file.errors %}
+                        <p class="error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <button class="btn btn-navy" type="submit">Upload students</button>
+            </form>
+
+            {% if import_result %}
+            <p class="import-summary">
+                Import complete: {{ import_result.created }} added,
+                {{ import_result.skipped }} skipped,
+                {{ import_result.errors }} errors.
+            </p>
+            {% if import_result.error_details or import_result.duplicates %}
+            <ul class="import-details">
+                {% for row, reason in import_result.error_details %}
+                <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
+                {% endfor %}
+                {% for row, reason in import_result.duplicates %}
+                <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Current standings</h2>
+                <span class="count-chip">{{ standings|length }} positions</span>
+            </div>
+            {% for item in standings %}
+            <div class="panel-head sub-head">
+                <h2>{{ item.position.name }} <span style="font-weight:600; color:var(--db-muted); font-size:0.85rem;">· {{ item.total }} votes</span></h2>
+            </div>
+            <div class="standing-rows">
+                {% for entry in item.candidates %}
+                <div class="standing-row{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
+                    <span class="standing-name{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
+                        {% if entry.candidate.photo %}
+                        <img class="mini-photo" src="{{ entry.candidate.photo.url }}" alt="">
+                        {% endif %}
+                        {{ entry.candidate.student.full_name }}
+                    </span>
+                    <div class="bar">
+                        <div class="bar-fill" style="width: {% widthratio entry.count item.total 100 %}%"></div>
+                    </div>
+                    <span class="standing-count">{{ entry.count }}</span>
+                </div>
+                {% empty %}
+                <p class="hint">No candidates for this position.</p>
+                {% endfor %}
+            </div>
+            {% empty %}
+            <p class="hint">No positions created yet.</p>
+            {% endfor %}
+        </section>
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Recent votes</h2>
+                <span class="count-chip orange">latest 8</span>
+            </div>
+            {% if recent_votes %}
+            <table class="results-table">
+                <thead>
+                    <tr><th>Student</th><th>Position</th><th>Candidate</th><th>When</th></tr>
+                </thead>
+                <tbody>
+                    {% for vote in recent_votes %}
+                    <tr>
+                        <td>{{ vote.student.student_id }}</td>
+                        <td>{{ vote.position.name }}</td>
+                        <td>{{ vote.candidate.student.full_name }}</td>
+                        <td class="total">{{ vote.created_at|date:"d M H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="hint">No votes cast yet.</p>
+            {% endif %}
+        </section>
+
+        <section class="panel attendance-panel">
+            <div class="panel-head">
+                <h2>Voting attendance</h2>
+                <span class="count-chip orange">{{ not_voted_count }} remaining</span>
+            </div>
+            <div class="attendance-summary">
+                <p class="total"><strong>{{ voted_count }}</strong> of <strong>{{ eligible }}</strong> students have voted.</p>
+                <div class="filter-pills">
+                    <button class="pill active" data-filter="all">All</button>
+                    <button class="pill" data-filter="voted">Voted ({{ voted_count }})</button>
+                    <button class="pill" data-filter="pending">Not yet voted ({{ not_voted_count }})</button>
+                </div>
+            </div>
+
+            {% if attendance %}
+            <div class="attendance-scroll">
+                <table class="results-table attendance-table">
+                    <thead>
+                        <tr><th>Student ID</th><th>Name</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in attendance %}
+                        <tr data-voted="{{ entry.has_voted|yesno:'voted,pending' }}">
+                            <td>{{ entry.student.student_id }}</td>
+                            <td>{{ entry.student.full_name }}</td>
+                            <td>
+                                {% if entry.has_voted %}
+                                    <span class="status-chip voted">Voted</span>
+                                    <span class="total">{{ entry.voted_at|date:"d M, H:i" }}</span>
+                                {% else %}
+                                    <span class="status-chip pending">Not voted</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="hint">No active students enrolled.</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+
+<script>
+(function(){
+    document.querySelectorAll('.filter-pills .pill').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            document.querySelectorAll('.filter-pills .pill').forEach(function(b){ b.classList.remove('active'); });
+            btn.classList.add('active');
+            var filter = btn.getAttribute('data-filter');
+            document.querySelectorAll('.attendance-table tbody tr').forEach(function(row){
+                if(filter==='all') row.style.display='';
+                else row.style.display = row.getAttribute('data-voted')===filter ? '' : 'none';
+            });
+        });
+    });
+})();
+</script>
+{% endblock %}
