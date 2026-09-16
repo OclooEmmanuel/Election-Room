@@ -3,7 +3,7 @@ services:
     name: election-room
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: ./build.sh
     startCommand: gunicorn prefect_voting.wsgi:application --worker-class gthread --workers 1 --threads 12 --timeout 120 --access-logfile -
     healthCheckPath: /
     envVars:
@@ -22,7 +22,7 @@ services:
     name: election-room-keepalive
     runtime: python
     schedule: "*/10 * * * *"
-    buildCommand: pip install -r requirements.txt
+    buildCommand: ./build.sh
     startCommand: python manage.py keepalive
     envVars:
       - key: PYTHON_VERSION
