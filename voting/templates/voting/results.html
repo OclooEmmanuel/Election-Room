@@ -19,7 +19,8 @@
 {% for group in results %}
     <section class="results-group">
         <h2>{{ group.position.name|upper }}</h2>
-        <table class="results-table">
+        <div class="table-scroll">
+            <table class="results-table">
             <thead>
                 <tr><th>Candidate</th><th>Votes</th></tr>
             </thead>
@@ -39,6 +40,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
         <p class="total">Total votes: {{ group.total }}</p>
         {% if group.winner %}
             <p class="winner">

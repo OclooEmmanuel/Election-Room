@@ -18,7 +18,7 @@
             <a href="{% url 'voting:results' %}"><span class="icon">▥</span> Live results</a>
             <a href="/admin/"><span class="icon">⚙</span> Admin panel</a>
             <a href="{% url 'voting:vote' %}"><span class="icon">✎</span> Public voting</a>
-            <a href="/admin/logout/"><span class="icon">⇥</span> Sign out</a>
+            <a href="/admin/logout/"><span class="icon"></span> Sign out</a>
         </nav>
         <div class="sidebar-card">
             <div class="who">{{ request.user.get_full_name|default:request.user.username }}</div>
@@ -32,7 +32,7 @@
                 <h1>Election dashboard</h1>
                 <p class="sub">
                     {% if election %}{{ election.name }}{% else %}No election set up yet{% endif %}
-                    — <span class="status-badge {% if election and election.is_open %}open{% else %}closed{% endif %}">{% if election and election.is_open %}OPENED{% else %}CLOSED{% endif %}</span>
+                     <span class="status-badge {% if election and election.is_open %}open{% else %}closed{% endif %}">{% if election and election.is_open %}OPENED{% else %}CLOSED{% endif %}</span>
                 </p>
             </div>
             <div class="topbar-actions">
@@ -156,6 +156,7 @@
                 <span class="count-chip orange">latest 8</span>
             </div>
             {% if recent_votes %}
+            <div class="table-scroll">
             <table class="results-table">
                 <thead>
                     <tr><th>Student</th><th>Position</th><th>Candidate</th><th>When</th></tr>
@@ -167,10 +168,11 @@
                         <td>{{ vote.position.name }}</td>
                         <td>{{ vote.candidate.student.full_name }}</td>
                         <td class="total">{{ vote.created_at|date:"d M H:i" }}</td>
-                    </tr>
+</tr>
                     {% endfor %}
                 </tbody>
-            </table>
+</table>
+            </div>
             {% else %}
             <p class="hint">No votes cast yet.</p>
             {% endif %}
@@ -192,6 +194,7 @@
 
             {% if attendance %}
             <div class="attendance-scroll">
+                <div class="table-scroll">
                 <table class="results-table attendance-table">
                     <thead>
                         <tr><th>Student ID</th><th>Name</th><th>Status</th></tr>
@@ -213,6 +216,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
             </div>
             {% else %}
             <p class="hint">No active students enrolled.</p>

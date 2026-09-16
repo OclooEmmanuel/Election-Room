@@ -160,6 +160,10 @@ UNFOLD = {
     'SITE_SUBHEADER': 'Election administration',
     'SITE_URL': '/',
     'SITE_SYMBOL': 'how_to_vote',
+    'SITE_FAVICONS': [
+        {'rel': 'icon', 'href': lambda *args: static('img/favicon-box.png'), 'type': 'image/png'},
+        {'rel': 'apple-touch-icon', 'href': lambda *args: static('img/favicon-box.png'), 'type': 'image/png'},
+    ],
     'SHOW_HISTORY': True,
     'SHOW_VIEW_ON_SITE': True,
     'SHOW_BACK_BUTTON': False,

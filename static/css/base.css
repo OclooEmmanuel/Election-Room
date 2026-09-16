@@ -211,6 +211,58 @@ input[type="text"]:focus {
     overflow-x: hidden;
 }
 
+/* Glassmorphism on the vote page — frosted cards and forms
+   over the blurred backdrop */
+.vote-page form {
+    background: rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(17, 55, 90, 0.12);
+}
+
+.vote-page .position-card {
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 6px 24px rgba(17, 55, 90, 0.08);
+}
+
+.vote-page .card-body {
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px rgba(17, 55, 90, 0.10);
+}
+
+.vote-page .candidate-card:hover .card-body {
+    border-color: var(--color-primary);
+}
+
+.vote-page .candidate-input:checked + .card-body {
+    background: #ffd500;
+    border-color: #e6c200;
+    color: #000;
+}
+
+.vote-page .card-photo {
+    background: rgba(244, 244, 244, 0.65);
+}
+
+/* Graceful fallback when backdrop-filter is unsupported */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .vote-page form,
+    .vote-page .card-body {
+        background: rgba(255, 255, 255, 0.92);
+    }
+
+    .vote-page .position-card {
+        background: rgba(255, 255, 255, 0.8);
+    }
+}
+
 .blur-bg::before,
 .blur-bg::after {
     content: "";
