@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     buildCommand: "bash ./build.sh"
-    startCommand: "gunicorn prefect_voting.wsgi:application --workers 2 --timeout 120 --access-logfile -"
+    startCommand: "gunicorn prefect_voting.wsgi:application --workers 1 --timeout 120 --access-logfile -"
     preDeployCommand: "python manage.py migrate && python manage.py init_admin"
     healthCheckPath: /results/
     envVars:
@@ -14,47 +14,48 @@ services:
         value: "False"
       - key: DJANGO_DB
         value: postgres
-      # Storage: candidate photos are REQUIRED and are uploaded through the
-      # admin. Render's free tier uses an ephemeral disk, so use S3 for media:
-      # set DJANGO_STORAGE to "s3" and add AWS_ACCESS_KEY_ID,
-      # AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_ENDPOINT_URL and
-      # AWS_S3_CUSTOM_DOMAIN in the Render dashboard (kept out of this file).
+      # Free tier has an ephemeral disk, and code is on Supabase Storage (S3).
+      # S3 also survives redeploys. Set DJANGO_STORAGE=s3 and add the AWS_*
+      # values below in the Render dashboard (kept out of this repo file).
       - key: DJANGO_STORAGE
-        value: local
+        sync: false
       - key: ALLOWED_HOSTS
         value: election-room.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
         value: https://*.onrender.com
       - key: DJANGO_SECRET_KEY
         generateValue: true
-      # Optional: auto-create an admin account on first deploy
+
+      # --- Admin account (created on first deploy by init_admin) ---
       - key: ADMIN_USERNAME
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
       - key: ADMIN_EMAIL
         sync: false
-      - key: POSTGRES_DB
-        fromDatabase:
-          name: election-room-db
-          property: database
-      - key: POSTGRES_USER
-        fromDatabase:
-          name: election-room-db
-          property: user
-      - key: POSTGRES_PASSWORD
-        fromDatabase:
-          name: election-room-db
-          property: password
-      - key: POSTGRES_HOST
-        fromDatabase:
-          name: election-room-db
-          property: host
-      - key: POSTGRES_PORT
-        fromDatabase:
-          name: election-room-db
-          property: port
 
-databases:
-  - name: election-room-db
-    plan: free
+      # --- Supabase Postgres (set values from the Supabase dashboard) ---
+      - key: POSTGRES_DB
+        sync: false
+      - key: POSTGRES_USER
+        sync: false
+      - key: POSTGRES_PASSWORD
+        sync: false
+      - key: POSTGRES_HOST
+        sync: false
+      - key: POSTGRES_PORT
+        sync: false
+
+      # --- Supabase Storage (S3-compatible; set when DJANGO_STORAGE=s3) ---
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_S3_ENDPOINT_URL
+        sync: false
+      - key: AWS_S3_REGION_NAME
+        sync: false
+      - key: AWS_S3_CUSTOM_DOMAIN
+        sync: false
