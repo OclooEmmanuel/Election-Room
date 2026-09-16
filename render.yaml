@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: election-room
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn prefect_voting.wsgi:application --worker-class gthread --workers 1 --threads 12 --timeout 120 --access-logfile -
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: DJANGO_SETTINGS_MODULE
+        value: prefect_voting.settings
+      - key: DJANGO_ALLOWED_HOSTS
+        value: '*'
+      - key: SITE_URL
+        value: https://election-room.onrender.com
+      - key: DJANGO_DEBUG
+        value: 'False'
+
+  - type: cron
+    name: election-room-keepalive
+    runtime: python
+    schedule: "*/10 * * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python manage.py keepalive
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: DJANGO_SETTINGS_MODULE
+        value: prefect_voting.settings

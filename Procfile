@@ -1,0 +1,1 @@
+web: gunicorn prefect_voting.wsgi:application --worker-class gthread --workers 1 --threads 12 --timeout 120 --access-logfile -
