@@ -796,3 +796,122 @@ input[type="text"]:focus {
     padding: 16px;
     font-size: 0.85rem;
 }
+
+/* ============ Responsive refinement ============ */
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 18px 0 36px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .header-inner {
+        padding: 12px;
+    }
+
+    .brand {
+        font-size: 1.05rem;
+    }
+
+    .site-nav a {
+        margin-left: 12px;
+        font-size: 0.95rem;
+    }
+
+    .hero {
+        padding: 18px 16px;
+    }
+
+    .results-group {
+        padding: 14px;
+    }
+
+    .selections th,
+    .selections td {
+        padding: 10px;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 8px;
+    }
+
+    .success-box {
+        padding: 26px 16px;
+    }
+
+    .vote-page .card-body {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .vote-page .card-photo {
+        height: 240px;
+    }
+
+    .card-name {
+        font-size: 1.05rem;
+    }
+
+    .modal {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .site-nav a {
+        margin-left: 0;
+        margin-right: 14px;
+    }
+
+    .vote-page .card-photo {
+        height: 200px;
+    }
+
+    .candidate-grid {
+        gap: 14px;
+    }
+
+    .position-card {
+        padding: 10px;
+    }
+
+    .vote-entry form {
+        margin-top: 6px;
+    }
+
+    .modal-actions form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .modal-actions form .btn-primary,
+    .modal-actions form .btn-secondary {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+
+    .filter-pills {
+        flex-wrap: wrap;
+    }
+}
