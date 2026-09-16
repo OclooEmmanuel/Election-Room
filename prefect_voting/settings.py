@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'prefect_voting.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
-#         'USER': os.environ.get('POSTGRES_USER', 'postgres.kpriqyumhmhpesjlfsft'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'Magneutron01$'),
-#         'HOST': os.environ.get('POSTGRES_HOST', 'aws-1-eu-west-1.pooler.supabase.com'),
+#         'USER': os.environ.get('POSTGRES_USER', ''),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+#         'HOST': os.environ.get('POSTGRES_HOST', ''),
 #         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
 #         'OPTIONS': {'sslmode': 'require'},
 #         'CONN_MAX_AGE': 600,
@@ -148,10 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Amazon S3-compatible storage (Supabase Storage)
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
 
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'eaf203c97e5d899739b0e17b2f6f31a7')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'c75a4afea1a4bfa728562414e4f805314ae7caef0e26c77fc085d14b74fbddc6')
-# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'election')
-# AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL', 'https://kpriqyumhmhpesjlfsft.supabase.co/storage/v1/s3')
+# -> credentials come from the .env file (gitignored)
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+# AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL', '')
 # AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'eu-west-1')
 # AWS_S3_ADDRESSING_STYLE = 'path'
 # AWS_S3_FILE_OVERWRITE = False
