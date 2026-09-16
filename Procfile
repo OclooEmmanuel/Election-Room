@@ -1,0 +1,1 @@
+web: gunicorn prefect_voting.wsgi:application --workers 2 --timeout 120 --access-logfile -

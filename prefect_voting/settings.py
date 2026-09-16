@@ -20,9 +20,16 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,testserver').split(',')
+
+# CSRF origin allowlist (Deployment on Render / custom domains)
+CSRF_TRUSTED_ORIGINS = [
+    o.strip()
+    for o in os.environ.get('CSRF_TRUSTED_ORIGINS', 'https://*.onrender.com,https://*.render.com').split(',')
+    if o.strip()
+]
 
 
 # Application definition
@@ -43,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,30 +81,35 @@ WSGI_APPLICATION = 'prefect_voting.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+#
+# Production (Render): set DJANGO_DB=postgres and the POSTGRES_* vars.
+# Local development defaults to SQLite.
+USE_POSTGRES = os.environ.get('DJANGO_DB', 'sqlite') == 'postgres'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
-#         'USER': os.environ.get('POSTGRES_USER', ''),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
-#         'HOST': os.environ.get('POSTGRES_HOST', ''),
-#         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-#         'OPTIONS': {'sslmode': 'require'},
-#         'CONN_MAX_AGE': 600,
-#         'CONN_HEALTH_CHECKS': True,
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 30,
-        },
+if USE_POSTGRES:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+            'USER': os.environ.get('POSTGRES_USER', ''),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+            'HOST': os.environ.get('POSTGRES_HOST', ''),
+            'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+            'OPTIONS': {'sslmode': os.environ.get('POSTGRES_SSLMODE', 'require')},
+            'CONN_MAX_AGE': 600,
+            'CONN_HEALTH_CHECKS': True,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+            'OPTIONS': {
+                'timeout': 30,
+            },
+        }
+    }
 
 
 
@@ -138,6 +151,8 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -145,28 +160,63 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Amazon S3-compatible storage (Supabase Storage)
-# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+# Media storage
+# https://docs.djangoproject.com/en/6.1/topics/files/
+#
+# Production (Render): set DJANGO_STORAGE=s3 and the AWS_* vars
+# (Supabase Storage / S3-compatible). Local development uses MediaRoot on disk.
+USE_S3 = os.environ.get('DJANGO_STORAGE', 'local') == 's3'
 
-# -> credentials come from the .env file (gitignored)
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
-# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
-# AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL', '')
-# AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'eu-west-1')
-# AWS_S3_ADDRESSING_STYLE = 'path'
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_QUERYSTRING_AUTH = False
+if USE_S3:
+    # Supabase Storage S3 credentials come from .env (gitignored)
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+    AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL', '')
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'eu-west-1')
+    AWS_S3_ADDRESSING_STYLE = 'path'
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_QUERYSTRING_AUTH = False
+    # Serve media via the public (non-authenticated) object URL:
+    # https://<ref>.supabase.co/storage/v1/object/public/<bucket>/<key>
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get(
+        'AWS_S3_CUSTOM_DOMAIN',
+        AWS_S3_ENDPOINT_URL.replace('https://', '').replace('/storage/v1/s3', '')
+        + '/storage/v1/object/public/'
+        + AWS_STORAGE_BUCKET_NAME,
+    )
+    DEFAULT_STORAGE_BACKEND = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    DEFAULT_STORAGE_BACKEND = 'django.core.files.storage.FileSystemStorage'
+
+# WhiteNoise serves static assets at production scale; the manifest backend
+# needs `collectstatic` (only required in non-DEBUG environments).
+STATICFILES_BACKEND = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    if not DEBUG
+    else 'django.contrib.staticfiles.storage.StaticFilesStorage'
+)
 
 STORAGES = {
     'default': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'BACKEND': DEFAULT_STORAGE_BACKEND,
         'OPTIONS': {},
     },
     'staticfiles': {
-        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        'BACKEND': STATICFILES_BACKEND,
     },
 }
+
+
+# Security hardening for production (Render sits behind the platform proxy)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 
 # django-unfold admin theme
@@ -252,6 +302,19 @@ UNFOLD = {
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': (
+            'django.core.mail.backends.console.EmailBackend'
+            if DEBUG
+            else os.environ.get(
+                'EMAIL_BACKEND',
+                'django.core.mail.backends.smtp.EmailBackend',
+            )
+        ),
+        'HOST': os.environ.get('EMAIL_HOST', 'localhost'),
+        'PORT': int(os.environ.get('EMAIL_PORT', '25')),
+        'USER': os.environ.get('EMAIL_HOST_USER', ''),
+        'PASSWORD': os.environ.get('EMAIL_HOST_PASSWORD', ''),
+        'USE_TLS': os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('1', 'true', 'yes'),
+        'DEFAULT_FROM_EMAIL': os.environ.get('DEFAULT_FROM_EMAIL', 'webmaster@localhost'),
     },
 }
