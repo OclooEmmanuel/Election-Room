@@ -1,20 +1,28 @@
+import os
+import sys
 from pathlib import Path
+from dotenv import load_dotenv
 from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1bm-^p+%-^m18+9^9!i3!+zq@2u!x+md197@m9myaf9z+=5#q5'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-1bm-^p+%-^m18+9^9!i3!+zq@2u!x+md197@m9myaf9z+=5#q5',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,testserver').split(',')
 
 
 # Application definition
@@ -66,6 +74,20 @@ WSGI_APPLICATION = 'prefect_voting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+#         'USER': os.environ.get('POSTGRES_USER', 'postgres.kpriqyumhmhpesjlfsft'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'Magneutron01$'),
+#         'HOST': os.environ.get('POSTGRES_HOST', 'aws-1-eu-west-1.pooler.supabase.com'),
+#         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+#         'OPTIONS': {'sslmode': 'require'},
+#         'CONN_MAX_AGE': 600,
+#         'CONN_HEALTH_CHECKS': True,
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -76,34 +98,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
-#         'USER': os.environ.get('POSTGRES_USER', 'postgres.fyjlcfaxwafelpplzexq'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
-#         'HOST': os.environ.get('POSTGRES_HOST', 'aws-1-eu-west-1.pooler.supabase.com'),
-#         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-#         'OPTIONS': {'sslmode': 'require'},
-#         'CONN_MAX_AGE': 600,
-#         'CONN_HEALTH_CHECKS': True,
-#     }
-# }
-
-
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=( "postgresql://postgres.lfnlcezieopmrqgegnnm:Magneutron01$@aws-1-eu-west-1.pooler.supabase.com:6543/postgres"),
-#         conn_max_age=600,           # Good for pooling
-#         conn_health_checks=True,
-#     )
-# }
-
-
-
-# DATABASES['default']['OPTIONS'] = {
-#     'sslmode': 'require',
-#     }
 
 
 # Password validation
@@ -151,12 +145,35 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Amazon S3-compatible storage (Supabase Storage)
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'eaf203c97e5d899739b0e17b2f6f31a7')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'c75a4afea1a4bfa728562414e4f805314ae7caef0e26c77fc085d14b74fbddc6')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'election')
+# AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL', 'https://kpriqyumhmhpesjlfsft.supabase.co/storage/v1/s3')
+# AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'eu-west-1')
+# AWS_S3_ADDRESSING_STYLE = 'path'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_QUERYSTRING_AUTH = False
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {},
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+}
+
+
 # django-unfold admin theme
 # https://unfoldadmin.com/docs/
 
 UNFOLD = {
-    'SITE_TITLE': 'JHS Prefect Voting',
-    'SITE_HEADER': 'JHS Prefect Voting',
+    'SITE_TITLE': 'Election Room',
+    'SITE_HEADER': 'Election Room',
     'SITE_SUBHEADER': 'Election administration',
     'SITE_URL': '/',
     'SITE_SYMBOL': 'how_to_vote',

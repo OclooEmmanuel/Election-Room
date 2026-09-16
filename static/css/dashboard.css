@@ -481,7 +481,44 @@ main.container {
         grid-template-columns: 1fr;
     }
 
+    .panel-topbar h1 {
+        font-size: 1.2rem;
+    }
+
+    .panel {
+        padding: 14px 12px;
+    }
+
+    .panel-main {
+        padding: 14px 10px 28px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .topbar-actions .btn {
+        padding: 9px 12px;
+        font-size: 0.85rem;
+    }
+
     .standing-row {
-        grid-template-columns: 120px 1fr 34px;
+        grid-template-columns: 108px 1fr 30px;
+        gap: 8px;
+    }
+
+    .standing-name {
+        font-size: 0.85rem;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 6px 8px;
     }
 }
+
+/* Verified above tables scroll horizontally instead of breaking the grid */
