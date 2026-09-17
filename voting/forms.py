@@ -34,7 +34,7 @@ class StudentIDForm(forms.Form):
         label="Student ID",
         max_length=30,
         widget=forms.TextInput(
-            attrs={"placeholder": "e.g. JHS-001", "autofocus": True}
+            attrs={"placeholder": "e.g. 001", "autofocus": True}
         ),
     )
 
