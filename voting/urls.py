@@ -7,6 +7,7 @@ app_name = "voting"
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("home/stats/", views.home_stats, name="home_stats"),
     path("vote/", views.vote, name="vote"),
     path("vote/confirm/", views.confirm_vote, name="vote_confirm"),
     path("vote/success/", views.success, name="vote_success"),
@@ -26,5 +27,20 @@ urlpatterns = [
         "dashboard/stats/",
         staff_member_required(views.dashboard_stats),
         name="dashboard_stats",
+    ),
+    path(
+        "dashboard/polls/",
+        staff_member_required(views.toggle_polls),
+        name="toggle_polls",
+    ),
+    path(
+        "dashboard/exports/voter-template/",
+        staff_member_required(views.export_voter_template),
+        name="export_voter_template",
+    ),
+    path(
+        "dashboard/exports/votes/",
+        staff_member_required(views.export_votes),
+        name="export_votes",
     ),
 ]

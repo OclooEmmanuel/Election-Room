@@ -4,26 +4,40 @@
 
 {% block content %}
 <div class="hero">
+    <span class="hero-eyebrow">Civic Voting Portal</span>
     <h1>{{ election.name|default:"JHS Prefect Election" }}</h1>
+    <p class="hero-sub">The official student voting portal for junior high school prefect candidates. Fast, private, and secure.</p>
     {% if election %}
         {% if election.is_open %}
-            <p class="status open">The election is currently OPEN.</p>
+            <span class="status open">Currently Open</span>
         {% else %}
-            <p class="status closed">The election is currently CLOSED.</p>
+            <span class="status closed">Currently Closed</span>
         {% endif %}
     {% else %}
-        <p class="status closed">No election has been set up yet.</p>
+        <span class="status closed">No election set up yet</span>
     {% endif %}
 </div>
 
-<div class="card-grid">
-    <a class="card" href="{% url 'voting:vote' %}">
-        <h2>Cast Your Vote</h2>
-        <p>Enter your student ID and choose your preferred candidates.</p>
+{% include "partials/_home_stats.html" %}
+
+<p class="home-live"><span class="live-dot"></span>Live turnout · refreshed every 30 seconds</p>
+
+<div class="cta-grid">
+    <a class="cta-card" href="{% url 'voting:vote' %}">
+        <span class="cta-icon"><span class="ms">how_to_vote</span></span>
+        <span>
+            <h2 class="cta-title">Cast Your Vote</h2>
+            <p class="cta-desc">Verify your student ID and cast your ballots in under two minutes.</p>
+        </span>
+        <span class="cta-arrow ms">arrow_forward</span>
     </a>
-    <a class="card" href="{% url 'voting:results' %}">
-        <h2>View Results</h2>
-        <p>See the current standings for each position.</p>
+    <a class="cta-card" href="{% url 'voting:results' %}">
+        <span class="cta-icon gold"><span class="ms">leaderboard</span></span>
+        <span>
+            <h2 class="cta-title">View Live Results</h2>
+            <p class="cta-desc">Follow certified standings and turnout once the polls close.</p>
+        </span>
+        <span class="cta-arrow ms">arrow_forward</span>
     </a>
 </div>
 {% endblock %}

@@ -15,4 +15,24 @@
     });
 
     document.addEventListener("htmx:afterswap", syncBodyClass);
+
+    function updateBallotCount() {
+        var form = document.getElementById("vote-form");
+        if (!form) return;
+        var chip = form.querySelector("[data-sel-count]");
+        if (!chip) return;
+        var total = form.querySelectorAll(".position-card").length;
+        var checked = form.querySelectorAll(".candidate-input:checked").length;
+        chip.textContent = checked + " / " + total + " Selected";
+    }
+
+    document.addEventListener("change", function (event) {
+        var target = event.target;
+        if (target && target.classList && target.classList.contains("candidate-input")) {
+            updateBallotCount();
+        }
+    });
+
+    document.addEventListener("htmx:afterswap", updateBallotCount);
+    updateBallotCount();
 })();

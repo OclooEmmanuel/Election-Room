@@ -1,43 +1,45 @@
-<section class="panel" id="bulk-upload-panel">
-    <div class="panel-head">
-        <h2>Bulk upload students</h2>
-        <span class="count-chip orange">CSV</span>
-    </div>
-    <p class="hint">Columns <code>student_id, full_name, gender, class_level</code>.
-        Gender (<code>M</code>/<code>F</code>) and class level are optional;
-        a header row is optional; existing student IDs are skipped.</p>
-
-    <form method="post" enctype="multipart/form-data"
-          action="{% url 'voting:dashboard' %}"
-          hx-post="{% url 'voting:dashboard' %}"
-          hx-target="#bulk-upload-panel"
-          hx-swap="outerHTML">
-        {% csrf_token %}
-        <div class="form-field file-field">
-            <label for="id_csv_file">Students CSV</label>
-            <input type="file" name="csv_file" id="id_csv_file" accept=".csv" required>
-            {% for error in bulk_form.csv_file.errors %}
-                <p class="error-text">{{ error }}</p>
+<div class="lg:col-span-5 flex flex-col gap-4" id="bulk-upload-panel">
+    <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+            <span class="font-label-lg text-sm font-bold text-primary">Import Voter Register</span>
+            <span class="font-mono text-xs text-text-secondary">CSV</span>
+        </div>
+        <form method="post" enctype="multipart/form-data"
+              action="{% url 'voting:dashboard' %}"
+              hx-post="{% url 'voting:dashboard' %}"
+              hx-target="#bulk-upload-panel"
+              hx-swap="outerHTML">
+            {% csrf_token %}
+            <label class="rounded border border-dashed border-border-strong p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" for="id_csv_file">
+                <span class="material-symbols-outlined text-xl text-text-secondary mb-1">upload_file</span>
+                <span class="font-label-md text-xs font-semibold text-primary">Drop CSV here or browse</span>
+                <span class="text-[11px] text-text-secondary mt-1.5">student_id, full_name, gender, class_level</span>
+                <input accept=".csv" class="hidden" id="id_csv_file" name="csv_file" type="file">
+                {% for error in bulk_form.csv_file.errors %}
+                <span class="text-error text-[11px] mt-1">{{ error }}</span>
+                {% endfor %}
+            </label>
+            <div class="flex items-center justify-between text-xs">
+                <a class="text-text-secondary hover:text-primary transition-colors" href="{% url 'voting:export_voter_template' %}">Download Template</a>
+                <button class="px-3 py-1.5 rounded bg-primary text-on-primary font-medium hover:bg-primary-container transition-all" type="submit">Upload Register</button>
+            </div>
+        </form>
+        {% if import_result %}
+        <div class="text-[11px] text-text-secondary">
+            Import complete: {{ import_result.created }} added,
+            {{ import_result.skipped }} skipped,
+            {{ import_result.errors }} errors.
+        </div>
+        {% if import_result.error_details or import_result.duplicates %}
+        <div class="flex flex-col gap-1 text-[11px] text-text-secondary">
+            {% for row, reason in import_result.error_details %}
+            <div><span class="font-mono text-text-primary">{{ row|join:", " }}</span> — {{ reason }}</div>
+            {% endfor %}
+            {% for row, reason in import_result.duplicates %}
+            <div><span class="font-mono text-text-primary">{{ row|join:", " }}</span> — {{ reason }}</div>
             {% endfor %}
         </div>
-        <button class="btn btn-navy" type="submit">Upload students</button>
-    </form>
-
-    {% if import_result %}
-    <p class="import-summary">
-        Import complete: {{ import_result.created }} added,
-        {{ import_result.skipped }} skipped,
-        {{ import_result.errors }} errors.
-    </p>
-    {% if import_result.error_details or import_result.duplicates %}
-    <ul class="import-details">
-        {% for row, reason in import_result.error_details %}
-        <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
-        {% endfor %}
-        {% for row, reason in import_result.duplicates %}
-        <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endif %}
-</section>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>

@@ -3,54 +3,92 @@
      hx-trigger="every 10s" hx-swap="outerHTML">
     {% if locked %}
     <div class="success-box">
-        <span class="status closed">Results are not available yet</span>
+        <h2>Results are not available yet</h2>
         <p>Voting is currently in progress. The results will be published here as soon as the election closes.</p>
         <p>
             <a class="btn-primary" href="{% url 'voting:vote' %}">Go to voting</a>
         </p>
     </div>
     {% else %}
+    <div class="kpi-strip">
+        <div class="kpi">
+            <span class="kpi-icon"><span class="ms">how_to_vote</span></span>
+            <span>
+                <span class="kpi-value">{{ turnout|default:0 }}%</span>
+                <span class="kpi-label">Participation</span>
+            </span>
+        </div>
+        <div class="kpi">
+            <span class="kpi-icon"><span class="ms">fact_check</span></span>
+            <span>
+                <span class="kpi-value">{{ voters|default:0 }}</span>
+                <span class="kpi-label">Total Ballots Cast</span>
+            </span>
+        </div>
+        <div class="kpi">
+            <span class="kpi-icon"><span class="ms">domain</span></span>
+            <span>
+                <span class="kpi-value">{{ results|length }}</span>
+                <span class="kpi-label">Contested Offices</span>
+            </span>
+        </div>
+    </div>
+
     {% for group in results %}
-        <section class="results-group">
-            <h2>{{ group.position.name|upper }}</h2>
-            <div class="table-scroll">
-                <table class="results-table">
-                <thead>
-                    <tr><th>Candidate</th><th>Votes</th></tr>
-                </thead>
-                <tbody>
-                    {% for item in group.candidates %}
-                        <tr>
-                            <td>
-                                {% if item.candidate.photo %}
-                                <img class="candidate-photo" src="{{ item.candidate.photo.url }}" alt="{{ item.candidate.student.full_name }}">
-                                {% endif %}
-                                {{ item.candidate.student.full_name }}
-                            </td>
-                            <td class="count">{{ item.count }}</td>
-                        </tr>
-                    {% empty %}
-                        <tr><td colspan="2">No candidates for this position.</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <section class="results-portfolio">
+            <div class="portfolio-head">
+                <div class="portfolio-title">
+                    <span class="position-badge">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span>
+                        <h2>{{ group.position.name|upper }}</h2>
+                        <span class="result-total">Total votes: {{ group.total }}</span>
+                    </span>
+                </div>
             </div>
-            <p class="total">Total votes: {{ group.total }}</p>
+
             {% if group.winner %}
-                <p class="winner">
-                    Winner:
-                    {% if group.tied %}
-                        <strong>{{ group.winner.candidate.student.full_name }}</strong> tied with
-                        {% for item in group.tied %}<strong>{{ item.candidate.student.full_name }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}
-                        ({{ group.winner.count }} votes each)
-                    {% elif group.winner.count > 0 %}
-                        <strong>{{ group.winner.candidate.student.full_name }}</strong> ({{ group.winner.count }} votes)
-                    {% else %}
-                        No votes yet.
-                    {% endif %}
-                </p>
+            <div class="result-winner">
+                <span class="crown"><span class="ms">star</span></span>
+                <span>
+                    <span class="label">{% if group.tied %}Tied Winners{% else %}Official Winner{% endif %}</span>
+                    <div class="name">
+                        {% if group.tied %}
+                            {{ group.winner.candidate.student.full_name }} tied with
+                            {% for item in group.tied %}{{ item.candidate.student.full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                        {% else %}
+                            {{ group.winner.candidate.student.full_name }}
+                        {% endif %}
+                    </div>
+                </span>
+                <span class="votes">
+                    <strong>{{ group.winner.count }} votes</strong><br>
+                    <span>Winner: {{ group.winner.percent }}% share</span>
+                </span>
+            </div>
             {% endif %}
+
+            <div class="result-rows">
+                {% for item in group.candidates %}
+                    <div class="result-row{% if group.winner and not group.tied and item.candidate.pk == group.winner.candidate.pk and group.winner.count > 0 %} is-winner{% endif %}">
+                        <span class="result-name">
+                            {% if item.candidate.photo %}
+                            <img class="result-photo" src="{{ item.candidate.photo.url }}" alt="{{ item.candidate.student.full_name }}">
+                            {% endif %}
+                            {{ item.candidate.student.full_name }}
+                        </span>
+                        <div class="result-bar">
+                            <div class="result-bar-fill" style="width: {% widthratio item.count group.total 100 %}%"></div>
+                        </div>
+                        <span class="result-count">{{ item.count }}</span>
+                        <span class="result-pct">{{ item.percent }}%</span>
+                    </div>
+                {% empty %}
+                    <p class="hint">No candidates for this position.</p>
+                {% endfor %}
+            </div>
         </section>
+    {% empty %}
+        <p class="hint">No positions created yet.</p>
     {% endfor %}
     {% endif %}
 </div>

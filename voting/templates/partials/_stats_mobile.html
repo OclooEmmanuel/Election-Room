@@ -1,0 +1,38 @@
+{% load num_format %}
+<div class="grid grid-cols-2 gap-2" id="stats-root-mobile"
+     hx-get="{% url 'voting:dashboard_stats' %}"
+     hx-trigger="every 5s" hx-swap="outerHTML"
+     hx-headers='{"X-Mobile": "1"}'>
+    <div class="bg-surface-card rounded-xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div class="absolute top-0 inset-x-0 h-1 bg-primary"></div>
+        <span class="font-label-md text-label-md text-text-secondary">Eligible Roll</span>
+        <div>
+            <div class="font-display-lg-mobile text-display-lg-mobile text-text-primary">{{ eligible|thou }}</div>
+            <span class="font-body-sm text-body-sm text-text-secondary">Registered Voters</span>
+        </div>
+    </div>
+    <div class="bg-surface-card rounded-xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div class="absolute top-0 inset-x-0 h-1 bg-secondary-container"></div>
+        <span class="font-label-md text-label-md text-text-secondary">Turnout Rate</span>
+        <div>
+            <div class="font-display-lg-mobile text-display-lg-mobile text-text-primary">{{ turnout }}%</div>
+            <span class="font-body-sm text-body-sm text-status-open font-semibold">{{ voters|thou }} Verified Cast</span>
+        </div>
+    </div>
+    <div class="bg-surface-card rounded-xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div class="absolute top-0 inset-x-0 h-1 bg-primary-container"></div>
+        <span class="font-label-md text-label-md text-text-secondary">Total Ballots</span>
+        <div>
+            <div class="font-display-lg-mobile text-display-lg-mobile text-text-primary">{{ total_votes|thou }}</div>
+            <span class="font-body-sm text-body-sm text-text-secondary">Across All {{ office_count|default:0 }} Slates</span>
+        </div>
+    </div>
+    <div class="bg-surface-card rounded-xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div class="absolute top-0 inset-x-0 h-1 bg-selection-yellow"></div>
+        <span class="font-label-md text-label-md text-text-secondary">Offices Contested</span>
+        <div>
+            <div class="font-display-lg-mobile text-display-lg-mobile text-text-primary">{{ office_count|default:0 }} Role{{ office_count|pluralize }}</div>
+            <span class="font-body-sm text-body-sm text-text-secondary">{{ candidate_count|default:0 }} Candidates Active</span>
+        </div>
+    </div>
+</div>

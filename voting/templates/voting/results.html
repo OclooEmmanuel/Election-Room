@@ -5,7 +5,14 @@
 {% block bodyclass %}blur-bg{% endblock %}
 
 {% block content %}
-<h1>Election Results</h1>
+<div class="results-hero">
+    <span class="results-eyebrow">Certified Standings &amp; Results</span>
+    <h1>Official Election Standings &amp; Results</h1>
+    <p>
+        {% if election %}{{ election.name }}.{% else %}No election set up yet.{% endif %}
+        All ballots are tallied and published once the polls close.
+    </p>
+</div>
 
 {% include "partials/_results_groups.html" %}
 {% endblock %}

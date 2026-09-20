@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Open+Sans:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "outline-variant": "#c3c6cf",
+          "secondary-container": "#fd9e15",
+          "secondary-fixed-dim": "#ffb869",
+          "on-primary-fixed-variant": "#26496d",
+          "on-surface-variant": "#43474e",
+          "surface-tint": "#406186",
+          "on-tertiary": "#ffffff",
+          "on-secondary-fixed": "#2c1700",
+          "primary-fixed": "#d1e4ff",
+          "text-primary": "#112233",
+          "surface-container-highest": "#d4e4fa",
+          "tertiary-fixed-dim": "#a1c9ff",
+          "on-background": "#0d1d2c",
+          "election-gold": "#FFCC4D",
+          "border-subtle": "#DCE3EA",
+          "surface": "#f8f9ff",
+          "surface-variant": "#d4e4fa",
+          "surface-container-high": "#dae9ff",
+          "surface-bright": "#f8f9ff",
+          "surface-card": "#FFFFFF",
+          "on-error-container": "#93000a",
+          "error-container": "#ffdad6",
+          "on-surface": "#0d1d2c",
+          "primary-fixed-dim": "#a8c9f4",
+          "secondary": "#885200",
+          "primary-container": "#11375a",
+          "status-open-surface": "#EBF7EE",
+          "admin-sidebar-bg": "#0D2B47",
+          "outline": "#73777f",
+          "tertiary": "#00213f",
+          "surface-base": "#F4F7FA",
+          "text-secondary": "#4B5B6D",
+          "surface-dim": "#ccdbf1",
+          "on-secondary-container": "#663c00",
+          "selection-border": "#D8B200",
+          "primary": "#00213e",
+          "on-tertiary-fixed-variant": "#00487f",
+          "tertiary-fixed": "#d2e4ff",
+          "border-strong": "#CBD5E1",
+          "inverse-primary": "#a8c9f4",
+          "background": "#f8f9ff",
+          "selection-yellow": "#FFD500",
+          "on-primary": "#ffffff",
+          "status-closed-surface": "#FDEDEC",
+          "on-secondary": "#ffffff",
+          "error": "#ba1a1a",
+          "inverse-surface": "#233242",
+          "status-open": "#1F8A4C",
+          "secondary-fixed": "#ffdcbb",
+          "on-secondary-fixed-variant": "#683d00",
+          "tertiary-container": "#003763",
+          "inverse-on-surface": "#e9f1ff",
+          "on-tertiary-fixed": "#001c37",
+          "surface-container-low": "#eef4ff",
+          "status-closed": "#C0392B",
+          "on-primary-fixed": "#001d36",
+          "surface-container": "#e4efff",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-container": "#80a1c9",
+          "on-tertiary-container": "#5da2ee",
+          "on-error": "#ffffff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "margin": "2rem",
+          "space-sm": "0.5rem",
+          "space-xl": "2.5rem",
+          "space-lg": "1.5rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-md": "1rem",
+          "gutter": "1.5rem"
+        },
+        "fontFamily": {
+          "label-lg": [
+            "Inter"
+          ],
+          "headline-sm": [
+            "Open Sans"
+          ],
+          "label-sm": [
+            "Inter"
+          ],
+          "headline-lg-mobile": [
+            "Open Sans"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "title-lg": [
+            "Open Sans"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Open Sans"
+          ],
+          "headline-lg": [
+            "Open Sans"
+          ],
+          "label-md": [
+            "Inter"
+          ],
+          "display-lg": [
+            "Open Sans"
+          ],
+          "display-lg-mobile": [
+            "Open Sans"
+          ]
+        },
+        "fontSize": {
+          "label-lg": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "600"
+            }
+          ],
+          "label-sm": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.06em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-lg-mobile": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "400"
+            }
+          ],
+          "title-lg": [
+            "16px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-md": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.04em",
+              "fontWeight": "600"
+            }
+          ],
+          "display-lg": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "display-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "34px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-admin-sidebar-bg text-on-primary z-50 flex flex-col justify-between shadow-[0_4px_16px_rgba(17,55,90,0.15)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between border-b border-primary/20"><div class="flex items-center gap-2.5"><img alt="Official Seal" class="w-7 h-7 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCduLdt9zuO2Ldel4GzN80E0ynwoWIWJmT-DG6dMX6Zj9ktxlo_IiQTT02v74YSlKV59YMZaMqUxWwCMdZsnbzUfaUMldTbqKrZJOaxcO48bWfQUmNuCHwznTJCXe4LjmYWts_bJl6fXuH2I2CC4JgvZn16aBTrIyvy7oxzApEdEPD9FL-W234sf5NwfgjimE025uq7W8fnfXmi01Ilt5RI6MnzRx9rg9kn4axpifnuu8yBEXVxKibw"><div class="flex flex-col"><span class="font-headline-sm text-sm text-on-primary font-bold tracking-tight uppercase">ELECTION ROOM</span><span class="font-label-sm text-xs text-text-secondary">Admin Desk</span></div></div><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-open-surface text-status-open font-label-sm text-xs font-bold"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Live</span></div><nav class="flex flex-col gap-1 px-3 py-4"><a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container/20 text-on-primary font-semibold text-sm transition-colors" data-path="staff-dashboard" href="#"><span class="material-symbols-outlined text-lg text-secondary-container">dashboard</span><span class="">Overview</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" data-path="voter-roster" href="#"><span class="material-symbols-outlined text-lg">how_to_reg</span><span class="">Voter Roster</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" data-path="ballot-manager" href="#"><span class="material-symbols-outlined text-lg">ballot</span><span class="">Ballot Setup</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" data-path="turnout-analytics" href="#"><span class="material-symbols-outlined text-lg">analytics</span><span class="">Analytics</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" data-path="audit-trail" href="#"><span class="material-symbols-outlined text-lg">policy</span><span class="">Audit Trail</span></a></nav></div><div class="p-4 border-t border-primary/20 flex items-center justify-between"><div class="flex items-center gap-2.5"><img alt="Profile" class="w-7 h-7 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCduLdt9zuO2Ldel4GzN80E0ynwoWIWJmT-DG6dMX6Zj9ktxlo_IiQTT02v74YSlKV59YMZaMqUxWwCMdZsnbzUfaUMldTbqKrZJOaxcO48bWfQUmNuCHwznTJCXe4LjmYWts_bJl6fXuH2I2CC4JgvZn16aBTrIyvy7oxzApEdEPD9FL-W234sf5NwfgjimE025uq7W8fnfXmi01Ilt5RI6MnzRx9rg9kn4axpifnuu8yBEXVxKibw"><div class="flex flex-col"><span class="font-label-md text-xs font-semibold text-on-primary">Commissioner</span><span class="font-body-sm text-xs text-text-secondary">Election Room Staff</span></div></div><a class="text-primary-fixed hover:text-on-primary transition-colors" data-path="home" href="#" title="Exit to Public Portal"><span class="material-symbols-outlined text-lg">logout</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card border-b border-border-subtle z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-2"><span class="font-label-lg text-sm text-primary font-bold">Operations Desk</span><span class="text-text-secondary text-xs font-mono">/ 2026-B Session</span></div><div class="flex items-center gap-3"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-open-surface text-status-open font-label-sm text-xs font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Polls Active</span></div></header><main class="relative pt-16 bg-background min-h-screen"><div class="flex flex-col w-full"><div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl bg-primary text-on-primary font-label-lg text-label-lg" id="adminToast"><span class="material-symbols-outlined text-election-gold text-xl" id="toastIcon">check_circle</span><span id="toastMessage" class="">Action completed successfully</span></div><section class="px-space-md lg:px-space-lg pt-6 pb-4 w-full max-w-[1440px] mx-auto flex flex-col gap-6"><div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 pb-2 border-b border-border-subtle"><div class="flex flex-col gap-1"><div class="flex items-center gap-3"><h1 class="font-headline-lg text-2xl text-primary font-bold tracking-tight">Election Dashboard</h1><span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono text-xs font-medium">Live Feed</span></div><p class="font-body-sm text-xs text-text-secondary">Election Room • Synced automatically</p></div><div class="flex items-center gap-2"><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-strong bg-surface-card text-text-primary font-label-md text-xs hover:bg-surface-container-low transition-all" onclick="triggerToast('Opening Django Core Admin Panel...')"><span class="material-symbols-outlined text-base">admin_panel_settings</span><span class="">Admin Panel</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-xs hover:bg-primary-container transition-all" onclick="triggerToast('Navigating to Live Public Student Ballot...')"><span class="material-symbols-outlined text-base">open_in_new</span><span class="">Public Ballot</span></button><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 bg-status-closed-surface text-status-closed font-label-md text-xs hover:bg-red-100 transition-all" id="pauseBtn" onclick="toggleEmergencyPause(this)"><span class="material-symbols-outlined text-base">pause_circle</span><span id="pauseBtnText" class="">Pause Polls</span></button></div></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all"><span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Eligible Voters</span><div class="my-2"><span class="font-display-lg text-3xl font-bold text-primary tracking-tight">1,350</span></div><div class="text-xs text-text-secondary flex items-center justify-between"><span class="">Registered</span><span class="font-semibold text-primary">100%</span></div></div><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all"><span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Votes Cast</span><div class="my-2"><span class="font-display-lg text-3xl font-bold text-primary tracking-tight">1,124</span></div><div class="text-xs text-text-secondary flex items-center justify-between"><span class="">Participation</span><span class="font-semibold text-status-open">83.3%</span></div></div><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all"><span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Total Ballots</span><div class="my-2"><span class="font-display-lg text-3xl font-bold text-primary tracking-tight">3,372</span></div><div class="text-xs text-text-secondary flex items-center justify-between"><span class="">Active Slates</span><span class="font-semibold text-primary">3 Roles</span></div></div></div></section><section class="px-space-md lg:px-space-lg py-2 w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6"><div class="lg:col-span-7 flex flex-col gap-4"><div class="flex items-center justify-between pb-1 border-b border-border-subtle"><div class="flex items-center gap-2"><h2 class="font-title-lg text-base font-bold text-primary">Race Standings</h2><span class="text-xs text-text-secondary">(Encrypted Live Tally)</span></div><span class="font-mono text-xs text-text-secondary">1,124 Tallied</span></div><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-xs uppercase font-bold text-text-secondary tracking-wider">Senior Prefect (Boys)</span><span class="text-xs text-text-secondary font-mono">60.7% leader share</span></div><div class="flex flex-col gap-2.5"><div class="flex items-center justify-between text-xs"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQpvIC50eINfayyJmihkOE1GCb5pGGs4gBnf0py22mqoNfEBGehXPa7w42G9MHdiDP0z_IkM3k9Mgd2RRmkEwoaMpvsaOsWsXqPCEEs2ayfrocFZE9KqSKiqzDcPMKG_OuQCKSefhGYeBYCn0Voc1Mwz6c1D5cjbP1YD33JmiRd8C5DRSuTzagyDke5xcRMDjpvH6-1azZmbghawsRwN_K7rtmTfW12207tnLeldM6Wt0XCvMJyfSP"><span class="font-semibold text-primary">Kwame Mensah</span><span class="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-bold">Leading</span></div><div class="flex items-center gap-2 font-mono"><span class="font-bold text-primary">682</span><span class="text-text-secondary">60.7%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 60.7%"></div></div><div class="flex items-center justify-between text-xs pt-1"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwfg4nlHR2JnGDmoPMYxYc8w1rUU5curWZ1E8FTNJ_m1uTb5NPZWa3Sst3qL8s9ePm4rWqIpf7jhB0YYU3FP8Lv2D927vV1A7wl5qvLfd1plRZ53q7QtZcYLz0a2zUC_HLYMZtJ_HzASHHAlBrzA2_8NKFleTUsY5_sjXoE8IqeNuQQq02UMt3FPihpph47EtPUwmcnrEeQGYnf4Um2eSUmXMmzA4DfobzppvQ0Nd2RYTao_86cFl3"><span class="text-text-primary">Emmanuel Osei</span></div><div class="flex items-center gap-2 font-mono"><span class="font-semibold text-text-primary">442</span><span class="text-text-secondary">39.3%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary-container rounded-full" style="width: 39.3%"></div></div></div></div><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-xs uppercase font-bold text-text-secondary tracking-wider">Senior Prefect (Girls)</span><span class="text-xs text-text-secondary font-mono">67.1% leader share</span></div><div class="flex flex-col gap-2.5"><div class="flex items-center justify-between text-xs"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC35LuNsoZhwGcYzOwpuAgUI1eU50yBa5jlmSTwABaBg90A0-5ufs5JK75fE0dVwlh7Y0AEw5o8uW5cZM3TRt3Cezj8GJTIJ1IhRiWtHtyUTt2oHFKmRhEoyuFRP31C56xP6zu8wB8akfKclTuA4YVoW8ahdggF8urrf2hjKJsL9aN_92UtA2YaDG_Qne9HcI9DdTUp_xy9iOEGndNmHuOHf-8vbcc4vnE6SUunvbyTXTX1WVTnm0Zt"><span class="font-semibold text-primary">Akosua Addo</span><span class="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-bold">Leading</span></div><div class="flex items-center gap-2 font-mono"><span class="font-bold text-primary">754</span><span class="text-text-secondary">67.1%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 67.1%"></div></div><div class="flex items-center justify-between text-xs pt-1"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChc0F_qJZlogF_akoJoifAZHVPi3HOCU1wUf5bqADk6N_OVjtdqP_YWxxOoXQ2_YcekxHsIrjdMGg4PqaT55fYQ7Z-hHiUVS_zJOQLKPGPQVvY_5VifqXgTi48CgQhnAcuv30_ZuX0MJySJyA3m7NriSgq9dS4YlYhHMxXEidf6Nbw_nrrtMDOhAkbnLZo-VHAet6I0ka8SPurB86DekIEAUFc_ZlSV6QRxfzNqg7Qz1TJgwdCa_o"><span class="text-text-primary">Abigail Tetteh</span></div><div class="flex items-center gap-2 font-mono"><span class="font-semibold text-text-primary">370</span><span class="text-text-secondary">32.9%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary-container rounded-full" style="width: 32.9%"></div></div></div></div><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-xs uppercase font-bold text-text-secondary tracking-wider">Academic Prefect</span><span class="text-xs text-text-secondary font-mono">53.2% leader share</span></div><div class="flex flex-col gap-2.5"><div class="flex items-center justify-between text-xs"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1raQaMUiummkwsrTmyTvqjK6OJ7ub39-1dBbR3xTjW4nwkii085bwJ2E2RU8EUphApa4nE0vGBVQINuHsxBAOvBy_j-COiQgAks9QD4wDDjq0m9dKqelZmmfzGtnR8ClbVNVBNeM3CdHo_2ATaMUvLfe7c-sqJfQCKTWnRVLdw6gPhdLLNQxshSsCsqLZsC4xeq89cnXh0ckKRz9ra115G8DWVEj_6WWxjRK-vVik6PEwazGKw9Ai"><span class="font-semibold text-primary">Samuel Frimpong</span><span class="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-bold">Leading</span></div><div class="flex items-center gap-2 font-mono"><span class="font-bold text-primary">598</span><span class="text-text-secondary">53.2%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 53.2%"></div></div><div class="flex items-center justify-between text-xs pt-1"><div class="flex items-center gap-2"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbAo9ZYXcwAgBhKzy-O1nLXepsWkiFbBntrTYZe3CZiM2zmLm_o5nxxSQM7m4Pj_inxB0g02m6C5oTgGIuoF6XEPGFNK1mZ0QJbmX5HKy3ZRrYgme2MLDUU73cV7WtFGLDsL4RXi1crYX67c8vQF76-teIX4yTjE3pNEehrulQcaoQqwTpG5LitDHDrMtOTP0mChcXylZnrxLfCNtWLfvkWVINutbmDK9skFhAoxgdoPemdPmcdpUl"><span class="text-text-primary">David Darko</span></div><div class="flex items-center gap-2 font-mono"><span class="font-semibold text-text-primary">526</span><span class="text-text-secondary">46.8%</span></div></div><div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary-container rounded-full" style="width: 46.8%"></div></div></div></div></div><div class="lg:col-span-5 flex flex-col gap-4"><div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3"><div class="flex items-center justify-between"><span class="font-label-lg text-sm font-bold text-primary">Import Voter Register</span><span class="font-mono text-xs text-text-secondary">CSV</span></div><div class="rounded border border-dashed border-border-strong p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" id="dropzone" ondragleave="this.classList.remove('bg-surface-container');" ondragover="event.preventDefault(); this.classList.add('bg-surface-container');" ondrop="handleDrop(event)"><span class="material-symbols-outlined text-xl text-text-secondary mb-1">upload_file</span><span class="font-label-md text-xs font-semibold text-primary" id="dropFileName">Drop CSV here or browse</span><input accept=".csv" class="hidden" id="fileInput" onchange="handleFileChosen(event)" type="file"></div><div class="flex items-center justify-between text-xs"><button class="text-text-secondary hover:text-primary transition-colors" onclick="downloadSampleCSV()">Download Template</button><button class="px-3 py-1.5 rounded bg-primary text-on-primary font-medium hover:bg-primary-container transition-all" onclick="triggerUploadValidate()">Upload Register</button></div></div></div></section><section class="px-space-md lg:px-space-lg py-4 w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6"><div class="lg:col-span-8 rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-4"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div class="flex items-center gap-2"><h3 class="font-title-lg text-base font-bold text-primary">Voter Roll Attendance</h3><span class="font-mono text-xs text-text-secondary">1,124 / 1,350</span></div><div class="flex items-center gap-1 border border-border-subtle rounded-md p-0.5"><button class="filter-btn px-2.5 py-1 rounded text-xs font-medium bg-primary text-on-primary transition-all" onclick="filterVoters('all', this)">All</button><button class="filter-btn px-2.5 py-1 rounded text-xs font-medium text-text-secondary hover:text-primary transition-all" onclick="filterVoters('voted', this)">Voted</button><button class="filter-btn px-2.5 py-1 rounded text-xs font-medium text-text-secondary hover:text-primary transition-all" onclick="filterVoters('pending', this)">Pending</button></div></div><div class="relative w-full"><span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-text-secondary text-base">search</span><input class="w-full pl-8 pr-3 py-1.5 bg-background border border-border-subtle rounded text-xs text-text-primary focus:outline-none focus:border-primary transition-colors" id="voterSearchInput" oninput="searchVoters(this.value)" placeholder="Search voter by name, ID, or class..." type="text"></div><div class="overflow-x-auto max-h-[360px]"><table class="w-full text-left font-body-sm text-xs"><thead class="sticky top-0 bg-surface-card border-b border-border-subtle text-text-secondary font-medium"><tr class="text-text-secondary"><th class="py-2 px-3">ID</th><th class="py-2 px-3">Student</th><th class="py-2 px-3">Class</th><th class="py-2 px-3">Status</th><th class="py-2 px-3 text-right">Audit</th></tr></thead><tbody class="divide-y divide-border-subtle" id="voterTableBody"><tr class="hover:bg-background transition-colors" data-status="voted"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0881</td><td class="py-2.5 px-3 font-semibold text-text-primary">Kofi Boateng</td><td class="py-2.5 px-3 text-text-secondary">JHS 3 - Gold</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-open font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted 13:14</span></td><td class="py-2.5 px-3 text-right"><span class="material-symbols-outlined text-status-open text-base">check</span></td></tr><tr class="hover:bg-background transition-colors" data-status="voted"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0882</td><td class="py-2.5 px-3 font-semibold text-text-primary">Esi Mansah Quaye</td><td class="py-2.5 px-3 text-text-secondary">JHS 3 - Platinum</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-open font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted 13:12</span></td><td class="py-2.5 px-3 text-right"><span class="material-symbols-outlined text-status-open text-base">check</span></td></tr><tr class="hover:bg-background transition-colors" data-status="pending"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0883</td><td class="py-2.5 px-3 font-semibold text-text-primary">Joseph Nketiah</td><td class="py-2.5 px-3 text-text-secondary">JHS 2 - Sapphire</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-closed font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-closed"></span> Pending</span></td><td class="py-2.5 px-3 text-right"><button class="text-text-secondary hover:text-primary" onclick="triggerToast('Sent reminder SMS to WHS-0883')"><span class="material-symbols-outlined text-sm">send</span></button></td></tr><tr class="hover:bg-background transition-colors" data-status="voted"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0884</td><td class="py-2.5 px-3 font-semibold text-text-primary">Serwaa Annan</td><td class="py-2.5 px-3 text-text-secondary">JHS 3 - Diamond</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-open font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted 13:09</span></td><td class="py-2.5 px-3 text-right"><span class="material-symbols-outlined text-status-open text-base">check</span></td></tr><tr class="hover:bg-background transition-colors" data-status="pending"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0885</td><td class="py-2.5 px-3 font-semibold text-text-primary">Michael Adjei</td><td class="py-2.5 px-3 text-text-secondary">JHS 1 - Emerald</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-closed font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-closed"></span> Pending</span></td><td class="py-2.5 px-3 text-right"><button class="text-text-secondary hover:text-primary" onclick="triggerToast('Sent reminder SMS to WHS-0885')"><span class="material-symbols-outlined text-sm">send</span></button></td></tr><tr class="hover:bg-background transition-colors" data-status="voted"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0886</td><td class="py-2.5 px-3 font-semibold text-text-primary">Benedicta Arthur</td><td class="py-2.5 px-3 text-text-secondary">JHS 3 - Gold</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-open font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted 13:04</span></td><td class="py-2.5 px-3 text-right"><span class="material-symbols-outlined text-status-open text-base">check</span></td></tr><tr class="hover:bg-background transition-colors" data-status="voted"><td class="py-2.5 px-3 font-mono font-medium text-primary">WHS-0887</td><td class="py-2.5 px-3 font-semibold text-text-primary">Paa Kwesi Agyemang</td><td class="py-2.5 px-3 text-text-secondary">JHS 2 - Ruby</td><td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 text-status-open font-medium"><span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted 12:58</span></td><td class="py-2.5 px-3 text-right"><span class="material-symbols-outlined text-status-open text-base">check</span></td></tr></tbody></table></div></div><div class="lg:col-span-4 rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between gap-3"><div><div class="flex items-center justify-between pb-2 border-b border-border-subtle"><span class="font-label-lg text-sm font-bold text-primary">Recent Submissions</span><span class="text-xs text-text-secondary font-mono">Latest 5</span></div><div class="flex flex-col divide-y divide-border-subtle text-xs" id="recentBallotsContainer"><div class="py-2.5 flex items-center justify-between"><div class="flex flex-col"><span class="font-mono font-medium text-primary">WHS-0881</span><span class="text-text-secondary">All 3 Slates</span></div><span class="font-mono text-text-secondary text-[11px]">18s ago</span></div><div class="py-2.5 flex items-center justify-between"><div class="flex flex-col"><span class="font-mono font-medium text-primary">WHS-0882</span><span class="text-text-secondary">All 3 Slates</span></div><span class="font-mono text-text-secondary text-[11px]">2m ago</span></div><div class="py-2.5 flex items-center justify-between"><div class="flex flex-col"><span class="font-mono font-medium text-primary">WHS-0884</span><span class="text-text-secondary">All 3 Slates</span></div><span class="font-mono text-text-secondary text-[11px]">5m ago</span></div><div class="py-2.5 flex items-center justify-between"><div class="flex flex-col"><span class="font-mono font-medium text-primary">WHS-0886</span><span class="text-text-secondary">All 3 Slates</span></div><span class="font-mono text-text-secondary text-[11px]">10m ago</span></div><div class="py-2.5 flex items-center justify-between"><div class="flex flex-col"><span class="font-mono font-medium text-primary">WHS-0887</span><span class="text-text-secondary">All 3 Slates</span></div><span class="font-mono text-text-secondary text-[11px]">16m ago</span></div></div></div><button class="w-full py-1.5 rounded border border-border-subtle text-text-primary text-xs hover:bg-surface-container-low transition-colors font-medium flex items-center justify-center gap-1" onclick="triggerToast('Downloading encrypted audit ballot log CSV...')"><span class="material-symbols-outlined text-sm">download</span><span class="">Export Telemetry</span></button></div></section></div></main></div>
+
+</body></html>

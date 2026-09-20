@@ -425,9 +425,9 @@ class DashboardBulkUploadTests(TestCase):
         body = response.content.decode()
         for name in ("Ama Voted", "Kofi Voted", "Yaw Pending"):
             self.assertIn(name, body)
-        self.assertIn("Voting attendance", body)
-        self.assertIn('data-voted="voted"', body)
-        self.assertIn('data-voted="pending"', body)
+        self.assertIn("Voter Roster", body)
+        self.assertIn('data-status="voted"', body)
+        self.assertIn('data-status="pending"', body)
 
     def test_attendance_requires_staff(self):
         self.client.logout()

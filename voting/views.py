@@ -1,14 +1,17 @@
+import csv
+
 from django.contrib import messages
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from .forms import BulkStudentUploadForm, StudentIDForm, VotingForm
-from .models import Student, Vote
+from .models import Candidate, Position, Student, Vote
 from .services import (
     build_attendance,
     build_results_data,
     build_standings,
+    build_turnout_stats,
     find_voter,
     get_current_election,
     get_vote_errors,
@@ -55,7 +58,36 @@ def _ballot_initial(ballot):
 
 
 def home(request):
-    return render(request, "voting/home.html", {"election": get_current_election()})
+    election = get_current_election()
+    stats = build_turnout_stats()
+    return render(
+        request,
+        "voting/home.html",
+        {
+            "election": election,
+            "eligible": stats["eligible"],
+            "voters": stats["voters"],
+            "total_votes": stats["total_votes"],
+            "turnout": stats["turnout"],
+            "office_count": Position.objects.count(),
+            "candidate_count": Candidate.objects.count(),
+        },
+    )
+
+
+def home_stats(request):
+    stats = build_turnout_stats()
+    return render(
+        request,
+        "partials/_home_stats.html",
+        {
+            "eligible": stats["eligible"],
+            "voters": stats["voters"],
+            "turnout": stats["turnout"],
+            "office_count": Position.objects.count(),
+            "candidate_count": Candidate.objects.count(),
+        },
+    )
 
 
 def vote(request):
@@ -288,22 +320,44 @@ def results(request):
     election = get_current_election()
     locked = election is None or election.is_open
     results_data = build_results_data()
-    return render(request, "voting/results.html", {"results": results_data, "locked": locked})
+    stats = build_turnout_stats()
+    return render(
+        request,
+        "voting/results.html",
+        {
+            "results": results_data,
+            "locked": locked,
+            "election": election,
+            "turnout": stats["turnout"],
+            "voters": stats["voters"],
+        },
+    )
 
 
 def results_partial(request):
     election = get_current_election()
     locked = election is None or election.is_open
     results_data = build_results_data()
-    return render(request, "partials/_results_groups.html", {"results": results_data, "locked": locked})
+    stats = build_turnout_stats()
+    return render(
+        request,
+        "partials/_results_groups.html",
+        {
+            "results": results_data,
+            "locked": locked,
+            "turnout": stats["turnout"],
+            "voters": stats["voters"],
+        },
+    )
 
 
 def dashboard(request):
     election = get_current_election()
-    eligible = Student.objects.filter(is_active=True).count()
-    total_votes = Vote.objects.count()
-    voters = Vote.objects.values("student").distinct().count()
-    turnout = round((voters / eligible) * 100, 1) if eligible else 0.0
+    stats = build_turnout_stats()
+    eligible = stats["eligible"]
+    voters = stats["voters"]
+    total_votes = stats["total_votes"]
+    turnout = stats["turnout"]
 
     import_result = None
     if request.method == "POST":
@@ -338,6 +392,9 @@ def dashboard(request):
             "voters": voters,
             "total_votes": total_votes,
             "turnout": turnout,
+            "office_count": Position.objects.count(),
+            "candidate_count": Candidate.objects.count(),
+            "tallied": total_votes,
             "standings": standings,
             "recent_votes": recent_votes,
             "bulk_form": bulk_form,
@@ -349,23 +406,97 @@ def dashboard(request):
     )
 
 
+def _stats_context(stats):
+    return {
+        "eligible": stats["eligible"],
+        "voters": stats["voters"],
+        "total_votes": stats["total_votes"],
+        "turnout": stats["turnout"],
+        "office_count": Position.objects.count(),
+        "candidate_count": Candidate.objects.count(),
+    }
+
+
 def dashboard_standings(request):
     standings = build_standings()
-    return render(request, "partials/_standings.html", {"standings": standings})
+    tallied = Vote.objects.count()
+    template = (
+        "partials/_standings_mobile.html"
+        if request.headers.get("X-Mobile") == "1"
+        else "partials/_standings.html"
+    )
+    return render(
+        request,
+        template,
+        {"standings": standings, "tallied": tallied},
+    )
 
 
 def dashboard_stats(request):
-    eligible = Student.objects.filter(is_active=True).count()
-    total_votes = Vote.objects.count()
-    voters = Vote.objects.values("student").distinct().count()
-    turnout = round((voters / eligible) * 100, 1) if eligible else 0.0
+    stats = build_turnout_stats()
+    template = (
+        "partials/_stats_mobile.html"
+        if request.headers.get("X-Mobile") == "1"
+        else "partials/_stats.html"
+    )
     return render(
         request,
-        "partials/_stats.html",
-        {
-            "eligible": eligible,
-            "voters": voters,
-            "total_votes": total_votes,
-            "turnout": turnout,
-        },
+        template,
+        _stats_context(stats),
     )
+
+
+def toggle_polls(request):
+    """Staff action: pause/resume the current election from the dashboard."""
+    if request.method != "POST":
+        return redirect(reverse("voting:dashboard"))
+    election = get_current_election()
+    if election is not None:
+        election.is_open = not election.is_open
+        election.save(update_fields=["is_open"])
+    if _is_htmx(request):
+        target = request.headers.get("HX-Target", "")
+        template = (
+            "partials/_poll_status_mobile.html"
+            if "pause-toggle-wrap" in target
+            else "partials/_poll_status.html"
+        )
+        return render(
+            request,
+            template,
+            {"election": election},
+        )
+    return redirect(reverse("voting:dashboard"))
+
+
+def export_voter_template(request):
+    """Blank CSV template for the voter register import."""
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="voter_register_template.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["student_id", "full_name", "gender", "class_level"])
+    writer.writerow(["001", "Example Student", "M", "JHS 1A"])
+    writer.writerow(["002", "Another Example", "F", "JHS 2B"])
+    return response
+
+
+def export_votes(request):
+    """Full telemetry export of every recorded vote."""
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="votes_export.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["student_id", "student_name", "position", "candidate", "voted_at"])
+    votes = Vote.objects.select_related(
+        "student", "position", "candidate__student"
+    ).order_by("-created_at")
+    for vote in votes:
+        writer.writerow(
+            [
+                vote.student.student_id,
+                vote.student.full_name,
+                vote.position.name,
+                vote.candidate.student.full_name,
+                vote.created_at.isoformat(),
+            ]
+        )
+    return response

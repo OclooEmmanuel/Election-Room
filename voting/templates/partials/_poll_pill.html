@@ -1,0 +1,4 @@
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full {% if election and election.is_open %}bg-status-open-surface text-status-open{% else %}bg-status-closed-surface text-status-closed{% endif %} font-label-sm text-xs font-semibold">
+    <span class="w-1.5 h-1.5 rounded-full {% if election and election.is_open %}bg-status-open{% else %}bg-status-closed{% endif %}"></span>
+    {% if election and election.is_open %}Polls Active{% else %}Polls Paused{% endif %}
+</span>

@@ -1,0 +1,33 @@
+<div class="home-stats" id="home-stats"
+     hx-get="{% url 'voting:home_stats' %}"
+     hx-trigger="every 30s" hx-swap="outerHTML">
+    <div class="stat-chip">
+        <span class="stat-chip-icon"><span class="ms">group</span></span>
+        <span>
+            <span class="stat-chip-value">{{ eligible }}</span>
+            <span class="stat-chip-label">Eligible Voters</span>
+        </span>
+    </div>
+    <div class="stat-chip">
+        <span class="stat-chip-icon orange"><span class="ms">how_to_vote</span></span>
+        <span>
+            <span class="stat-chip-value">{{ voters }}</span>
+            <span class="stat-chip-label">Ballots Cast</span>
+        </span>
+    </div>
+    <div class="stat-chip">
+        <span class="stat-chip-icon gold"><span class="ms">percent</span></span>
+        <span>
+            <span class="stat-chip-value">{{ turnout }}%</span>
+            <span class="stat-chip-label">Voter Turnout</span>
+        </span>
+    </div>
+    <div class="stat-chip">
+        <span class="stat-chip-icon"><span class="ms">account_balance</span></span>
+        <span>
+            <span class="stat-chip-value">{{ office_count }}</span>
+            <span class="stat-chip-label">Offices</span>
+            <span class="stat-chip-label">· {{ candidate_count }} candidates</span>
+        </span>
+    </div>
+</div>

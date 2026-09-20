@@ -156,6 +156,20 @@ def import_students_from_csv(csv_file):
     }
 
 
+def build_turnout_stats():
+    """Reusable eligibility / turnout figures for public and staff screens."""
+    eligible = Student.objects.filter(is_active=True).count()
+    total_votes = Vote.objects.count()
+    voters = Vote.objects.values("student").distinct().count()
+    turnout = round((voters / eligible) * 100, 1) if eligible else 0.0
+    return {
+        "eligible": eligible,
+        "voters": voters,
+        "total_votes": total_votes,
+        "turnout": turnout,
+    }
+
+
 def build_results_data():
     """Build per-position results with sorted candidates, winner and ties."""
     results_data = []
@@ -168,6 +182,10 @@ def build_results_data():
             for candidate in position.candidates.all()
         ]
         candidates.sort(key=lambda c: c["count"], reverse=True)
+
+        total = sum(c["count"] for c in candidates)
+        for entry in candidates:
+            entry["percent"] = round((entry["count"] / total) * 100, 1) if total else 0.0
 
         winner = candidates[0] if candidates else None
         tied = []
@@ -184,7 +202,7 @@ def build_results_data():
                 "candidates": candidates,
                 "winner": winner,
                 "tied": tied,
-                "total": sum(c["count"] for c in candidates),
+                "total": total,
             }
         )
     return results_data
@@ -205,13 +223,17 @@ def build_standings():
             )
         candidates.sort(key=lambda c: c["count"], reverse=True)
 
+        total = sum(c["count"] for c in candidates)
+        for entry in candidates:
+            entry["percent"] = round((entry["count"] / total) * 100, 1) if total else 0.0
+
         leader = candidates[0] if candidates and candidates[0]["count"] > 0 else None
         standings.append(
             {
                 "position": position,
                 "candidates": candidates,
                 "leader": leader,
-                "total": max(c["count"] for c in candidates) if candidates else 0,
+                "total": total,
             }
         )
     return standings

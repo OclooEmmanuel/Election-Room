@@ -1,143 +1,447 @@
-{% extends "voting/base.html" %}
-{% load static %}
+{% extends "voting/dashboard_base.html" %}
+{% load num_format %}
 
-{% block title %}Voting Dashboard | Election Room{% endblock %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
-{% block footer %}{% endblock %}
-{% block header %}{% endblock %}
-{% block bodyclass %}blur-bg{% endblock %}
+{% block title %}Election Dashboard | Election Room{% endblock %}
+{% block bodyclass %}bg-surface{% endblock %}
 
 {% block content %}
-<div class="panel-wrap">
-    <aside class="panel-sidebar">
-        <div class="sidebar-brand">
-            <span class="brand-mark">✓</span>
-            <span>Westland Elections Room</span>
+<aside class="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-admin-sidebar-bg text-on-primary z-50 flex flex-col justify-between shadow-[0_4px_16px_rgba(17,55,90,0.15)]">
+    <div class="flex flex-col">
+        <div class="h-16 px-space-md flex items-center justify-between border-b border-primary/20">
+            <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-lg text-secondary-container">how_to_vote</span>
+                </span>
+                <div class="flex flex-col">
+                    <span class="font-headline-sm text-sm text-on-primary font-bold tracking-tight uppercase">ELECTION ROOM</span>
+                    <span class="font-label-sm text-xs text-text-secondary">Admin Desk</span>
+                </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-open-surface text-status-open font-label-sm text-xs font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Live</span>
         </div>
-        <nav class="sidebar-nav">
-            <a class="active" href="{% url 'voting:dashboard' %}"><span class="icon">▨</span> Dashboard</a>
-            <a href="{% url 'voting:results' %}"><span class="icon">▥</span> Live results</a>
-            <a href="/admin/" hx-boost="false"><span class="icon">⚙</span> Admin panel</a>
-            <a href="{% url 'voting:vote' %}"><span class="icon">✎</span> Public voting</a>
-            <a href="/admin/logout/" hx-boost="false"><span class="icon"></span> Sign out</a>
+        <nav class="flex flex-col gap-1 px-3 py-4">
+            <a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container/20 text-on-primary font-semibold text-sm transition-colors" href="{% url 'voting:dashboard' %}">
+                <span class="material-symbols-outlined text-lg text-secondary-container">dashboard</span>
+                <span>Overview</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" href="#attendance">
+                <span class="material-symbols-outlined text-lg">how_to_reg</span>
+                <span>Voter Roster</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" href="/admin/voting/position/">
+                <span class="material-symbols-outlined text-lg">ballot</span>
+                <span>Ballot Setup</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" href="#standings">
+                <span class="material-symbols-outlined text-lg">analytics</span>
+                <span>Analytics</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary-fixed hover:bg-primary/20 hover:text-on-primary transition-colors text-sm font-medium" href="/admin/voting/vote/">
+                <span class="material-symbols-outlined text-lg">policy</span>
+                <span>Audit Trail</span>
+            </a>
         </nav>
-        <div class="sidebar-card">
-            <div class="who">{{ request.user.get_full_name|default:request.user.username }}</div>
-            Election administrator · staff only
-        </div>
-    </aside>
-
-    <div class="panel-main">
-        <div class="panel-topbar">
-            <div>
-                <h1>Election dashboard</h1>
-                <p class="sub">
-                    {% if election %}{{ election.name }}{% else %}No election set up yet{% endif %}
-                     <span class="status-badge {% if election and election.is_open %}open{% else %}closed{% endif %}">{% if election and election.is_open %}OPENED{% else %}CLOSED{% endif %}</span>
-                </p>
-            </div>
-            <div class="topbar-actions">
-                <a class="btn btn-ghost" href="/admin/" hx-boost="false">Manage in admin</a>
-                <a class="btn btn-accent" href="{% url 'voting:results' %}">View live results</a>
+    </div>
+    <div class="p-4 border-t border-primary/20 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg text-primary">person</span>
+            </span>
+            <div class="flex flex-col">
+                <span class="font-label-md text-xs font-semibold text-on-primary">Commissioner</span>
+                <span class="font-body-sm text-xs text-text-secondary">Election Room Staff</span>
             </div>
         </div>
+        <a class="text-primary-fixed hover:text-on-primary transition-colors" href="/admin/logout/" title="Exit to Public Portal">
+            <span class="material-symbols-outlined text-lg">logout</span>
+        </a>
+    </div>
+</aside>
 
-        {% include "partials/_stats.html" %}
+<main class="relative pt-16 bg-background min-h-screen pb-20 lg:pb-0">
 
-        {% if request.user.is_superuser %}
-        {% include "partials/_bulk_upload.html" %}
+    <div class="hidden lg:block pl-64">
+        <header class="hidden lg:flex fixed top-0 left-64 right-0 h-16 bg-surface-card border-b border-border-subtle z-40 flex items-center justify-between px-space-lg">
+            <div class="flex items-center gap-2">
+                <span class="font-label-lg text-sm text-primary font-bold">Operations Desk</span>
+                <span class="text-text-secondary text-xs font-mono">/ {{ election.name|default:"No Session" }}</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="header-pill">{% include "partials/_poll_pill.html" %}</span>
+            </div>
+        </header>
+
+        <div class="flex flex-col w-full">
+            <div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl bg-primary text-on-primary font-label-lg text-label-lg" id="adminToast">
+                <span class="material-symbols-outlined text-election-gold text-xl" id="toastIcon">check_circle</span>
+                <span id="toastMessage">Action completed successfully</span>
+            </div>
+
+            <section class="px-space-md lg:px-space-lg pt-6 pb-4 w-full max-w-[1440px] mx-auto flex flex-col gap-6">
+                <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 pb-2 border-b border-border-subtle">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-3">
+                            <h1 class="font-headline-lg text-2xl font-bold text-primary tracking-tight">Election Dashboard</h1>
+                            <span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono text-xs font-medium">Live Feed</span>
+                        </div>
+                        <p class="font-body-sm text-xs text-text-secondary">Election Room • Synced automatically</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-strong bg-surface-card text-text-primary font-label-md text-xs hover:bg-surface-container-low transition-all" href="/admin/">
+                            <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                            <span>Admin Panel</span>
+                        </a>
+                        <a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-xs hover:bg-primary-container transition-all" href="{% url 'voting:vote' %}">
+                            <span class="material-symbols-outlined text-base">open_in_new</span>
+                            <span>Public Ballot</span>
+                        </a>
+                        <span id="pause-wrap">{% include "partials/_pause_btn.html" %}</span>
+                    </div>
+                </div>
+
+                {% include "partials/_stats.html" %}
+            </section>
+
+            <section class="px-space-md lg:px-space-lg py-2 w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {% include "partials/_standings.html" %}
+                {% if request.user.is_superuser %}
+                {% include "partials/_bulk_upload.html" %}
+                {% endif %}
+            </section>
+
+            <section class="px-space-md lg:px-space-lg py-4 w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-8 rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-4" id="attendance">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-title-lg text-base font-bold text-primary">Voter Roll Attendance</h3>
+                            <span class="font-mono text-xs text-text-secondary">{{ voted_count|thou }} / {{ eligible|thou }}</span>
+                        </div>
+                        <div class="flex items-center gap-1 border border-border-subtle rounded-md p-0.5">
+                            <button class="filter-btn px-2.5 py-1 rounded text-xs font-medium bg-primary text-on-primary transition-all" onclick="filterVoters('all', this)">All</button>
+                            <button class="filter-btn px-2.5 py-1 rounded text-xs font-medium text-text-secondary hover:text-primary transition-all" onclick="filterVoters('voted', this)">Voted</button>
+                            <button class="filter-btn px-2.5 py-1 rounded text-xs font-medium text-text-secondary hover:text-primary transition-all" onclick="filterVoters('pending', this)">Pending</button>
+                        </div>
+                    </div>
+                    <div class="relative w-full">
+                        <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-text-secondary text-base">search</span>
+                        <input class="w-full pl-8 pr-3 py-1.5 bg-background border border-border-subtle rounded text-xs text-text-primary focus:outline-none focus:border-primary transition-colors" id="voterSearchInput" oninput="searchVoters(this.value)" placeholder="Search voter by name, ID, or class..." type="text">
+                    </div>
+                    <div class="overflow-x-auto max-h-[360px]">
+                        <table class="w-full text-left font-body-sm text-xs">
+                            <thead class="sticky top-0 bg-surface-card border-b border-border-subtle text-text-secondary font-medium">
+                                <tr class="text-text-secondary">
+                                    <th class="py-2 px-3">ID</th>
+                                    <th class="py-2 px-3">Student</th>
+                                    <th class="py-2 px-3">Class</th>
+                                    <th class="py-2 px-3">Status</th>
+                                    <th class="py-2 px-3 text-right">Audit</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border-subtle" id="voterTableBody">
+                                {% for entry in attendance %}
+                                <tr class="hover:bg-background transition-colors"
+                                    data-status="{{ entry.has_voted|yesno:'voted,pending' }}"
+                                    data-search="{{ entry.student.student_id }} {{ entry.student.full_name }} {{ entry.student.class_level|default:'' }}">
+                                    <td class="py-2.5 px-3 font-mono font-medium text-primary">{{ entry.student.student_id }}</td>
+                                    <td class="py-2.5 px-3 font-semibold text-text-primary">{{ entry.student.full_name }}</td>
+                                    <td class="py-2.5 px-3 text-text-secondary">{{ entry.student.class_level|default:"—" }}</td>
+                                    <td class="py-2.5 px-3">
+                                        {% if entry.has_voted %}
+                                        <span class="inline-flex items-center gap-1 text-status-open font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-status-open"></span> Voted {{ entry.voted_at|date:"H:i" }}
+                                        </span>
+                                        {% else %}
+                                        <span class="inline-flex items-center gap-1 text-status-closed font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-status-closed"></span> Pending
+                                        </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2.5 px-3 text-right">
+                                        {% if entry.has_voted %}
+                                        <span class="material-symbols-outlined text-status-open text-base">check</span>
+                                        {% else %}
+                                        <span class="material-symbols-outlined text-text-secondary hover:text-primary text-sm">send</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td class="py-2.5 px-3 text-text-secondary" colspan="5">No active students enrolled.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between gap-3">
+                    <div>
+                        <div class="flex items-center justify-between pb-2 border-b border-border-subtle">
+                            <span class="font-label-lg text-sm font-bold text-primary">Recent Submissions</span>
+                            <span class="text-xs text-text-secondary font-mono">Latest 5</span>
+                        </div>
+                        <div class="flex flex-col divide-y divide-border-subtle text-xs" id="recentBallotsContainer">
+                            {% for vote in recent_votes %}
+                            <div class="py-2.5 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="font-mono font-medium text-primary">{{ vote.student.student_id }}</span>
+                                    <span class="text-text-secondary">All {{ office_count|default:0 }} Slate{{ office_count|pluralize }}</span>
+                                </div>
+                                <span class="font-mono text-text-secondary text-[11px]">{{ vote.created_at|timesince }} ago</span>
+                            </div>
+                            {% empty %}
+                            <div class="py-2.5 text-text-secondary">No votes cast yet.</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <a class="w-full py-1.5 rounded border border-border-subtle text-text-primary text-xs hover:bg-surface-container-low transition-colors font-medium flex items-center justify-center gap-1" href="{% url 'voting:export_votes' %}">
+                        <span class="material-symbols-outlined text-sm">download</span>
+                        <span>Export Telemetry</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="lg:hidden flex flex-col w-full pb-12">
+
+        {% if import_result %}
+        <div class="mx-4 mt-3 px-3 py-2 rounded-lg bg-status-open-surface text-status-open font-body-sm text-body-sm">
+            Import complete: {{ import_result.created }} added, {{ import_result.skipped }} skipped.
+        </div>
         {% endif %}
 
-        {% include "partials/_standings.html" %}
-
-        <section class="panel">
-            <div class="panel-head">
-                <h2>Recent votes</h2>
-                <span class="count-chip orange">latest 8</span>
+        <div class="px-4 pt-1">
+            <div class="bg-surface-card rounded-xl p-4 shadow-sm flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[24px]">admin_panel_settings</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                                <span class="font-headline-sm text-headline-sm text-text-primary">Staff Operations Desk</span>
+                                <span class="inline-flex items-center gap-1 {% if election %}bg-status-open-surface text-status-open{% else %}bg-surface-container text-text-secondary{% endif %} px-2 py-0.5 rounded-full">
+                                    <span class="material-symbols-outlined text-[12px] {% if election %}text-status-open{% else %}text-text-secondary{% endif %}">fiber_manual_record</span>
+                                    <span class="font-label-sm text-label-sm uppercase tracking-wider">{% if election %}Live{% else %}Offline{% endif %}</span>
+                                </span>
+                            </div>
+                            <span class="font-label-md text-label-md text-text-secondary">Session ID: {{ election.name|default:"No Session" }}</span>
+                        </div>
+                    </div>
+                    <span id="pause-toggle-wrap">{% include "partials/_pause_mobile.html" %}</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                    <div class="flex items-center gap-2">
+                        <span class="font-body-sm text-body-sm text-text-secondary">Operator: <strong class="text-text-primary">{{ request.user.get_full_name|default:request.user.username }}</strong></span>
+                        <span class="w-1 h-1 rounded-full bg-border-strong"></span>
+                        <span class="font-body-sm text-body-sm text-text-secondary">Role: <strong class="text-text-primary">Staff</strong></span>
+                    </div>
+                    <span class="font-label-sm text-label-sm text-text-secondary bg-surface-container-low px-2 py-0.5 rounded">Synced automatically</span>
+                </div>
             </div>
-            {% if recent_votes %}
-            <div class="table-scroll">
-            <table class="results-table">
-                <thead>
-                    <tr><th>Student</th><th>Position</th><th>Candidate</th><th>When</th></tr>
-                </thead>
-                <tbody>
-                    {% for vote in recent_votes %}
-                    <tr>
-                        <td>{{ vote.student.student_id }}</td>
-                        <td>{{ vote.position.name }}</td>
-                        <td>{{ vote.candidate.student.full_name }}</td>
-                        <td class="total">{{ vote.created_at|date:"d M H:i" }}</td>
-</tr>
+        </div>
+
+        <div class="px-4 pt-2">
+            <div class="flex items-center justify-between mb-1">
+                <span class="font-title-lg text-title-lg text-text-primary">Operational Metrics</span>
+                <span class="font-label-sm text-label-sm text-secondary-container font-semibold uppercase tracking-wider">Auto-Refresh 5s</span>
+            </div>
+            {% include "partials/_stats_mobile.html" %}
+        </div>
+
+        <div class="px-4 pt-2 flex items-center justify-between mb-1">
+            <span class="font-title-lg text-title-lg text-text-primary">Live Race Standings</span>
+            <span class="bg-surface-container px-2 py-0.5 rounded-full font-label-sm text-label-sm text-primary">Unofficial Tally</span>
+        </div>
+        <div class="px-4">
+            {% include "partials/_standings_mobile.html" %}
+        </div>
+
+        <div class="px-4 pt-2">
+            <span class="font-title-lg text-title-lg text-text-primary block mb-1">Staff Field Actions</span>
+            <div class="grid grid-cols-2 gap-2">
+                {% if request.user.is_superuser %}
+                <button onclick="document.getElementById('mobileCsvInput').click()" class="h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
+                    <span class="material-symbols-outlined text-[18px]">upload_file</span>
+                    <span>Import Roll CSV</span>
+                </button>
+                <a class="h-11 rounded-lg bg-secondary-container text-primary font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform" href="{% url 'voting:export_votes' %}">
+                    <span class="material-symbols-outlined text-[18px]">terminal</span>
+                    <span>Telemetry Log</span>
+                </a>
+                {% else %}
+                <a class="col-span-2 h-11 rounded-lg bg-secondary-container text-primary font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform" href="{% url 'voting:export_votes' %}">
+                    <span class="material-symbols-outlined text-[18px]">terminal</span>
+                    <span>Telemetry Log</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="px-4 pt-2">
+            <div class="bg-surface-card rounded-xl p-4 shadow-sm flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px] text-primary">badge</span>
+                        <span class="font-label-lg text-label-lg text-text-primary font-semibold">Voter Roll Attendance</span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-text-secondary">{{ voted_count|thou }} of {{ eligible|thou }}</span>
+                </div>
+                <div class="flex items-center gap-1 border border-border-subtle rounded-lg p-0.5 bg-surface">
+                    <button class="filter-btn-m flex-1 px-2 py-1.5 rounded-md text-center font-label-sm text-label-sm font-semibold bg-surface-card text-text-primary shadow-sm transition-all" onclick="filterVotersMobile('all', this)">All <span class="text-text-secondary">{{ eligible|default:0|thou }}</span></button>
+                    <button class="filter-btn-m flex-1 px-2 py-1.5 rounded-md text-center font-label-sm text-label-sm font-semibold text-text-secondary transition-all" onclick="filterVotersMobile('voted', this)">Voted <span class="text-status-open">{{ voted_count|default:0|thou }}</span></button>
+                    <button class="filter-btn-m flex-1 px-2 py-1.5 rounded-md text-center font-label-sm text-label-sm font-semibold text-text-secondary transition-all" onclick="filterVotersMobile('pending', this)">Pending <span class="text-status-closed">{{ not_voted_count|default:0|thou }}</span></button>
+                </div>
+                <div class="relative w-full">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[18px]">search</span>
+                    <input class="w-full pl-9 pr-3 py-2 bg-surface border border-border-subtle rounded-lg text-body-md text-body-md text-text-primary focus:outline-none focus:border-primary transition-colors" id="voterSearchInputM" oninput="searchVotersMobile(this.value)" placeholder="Search by Student ID or Name..." type="text">
+                </div>
+                <div class="max-h-72 overflow-y-auto flex flex-col gap-2 pr-0.5" id="voterListContainer">
+                    {% for entry in attendance %}
+                    <div class="voter-row-m flex items-center justify-between p-2 rounded-lg bg-surface hover:bg-surface-container-low transition-colors"
+                         data-status="{{ entry.has_voted|yesno:'voted,pending' }}"
+                         data-search="{{ entry.student.student_id }} {{ entry.student.full_name }} {{ entry.student.class_level|default:'' }}">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-8 h-8 rounded-full {% if entry.has_voted %}bg-status-open-surface text-status-open{% else %}bg-surface-container-highest text-text-secondary{% endif %} flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[16px]">{% if entry.has_voted %}verified_user{% else %}schedule{% endif %}</span>
+                            </span>
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-label-md text-label-md text-text-primary font-semibold truncate">{{ entry.student.full_name }}</span>
+                                <span class="font-body-sm text-body-sm text-text-secondary truncate">{{ entry.student.student_id }}{% if entry.student.class_level %} • {{ entry.student.class_level }}{% endif %}</span>
+                            </div>
+                        </div>
+                        <span class="shrink-0 px-2 py-1 rounded-full font-label-sm text-label-sm font-semibold {% if entry.has_voted %}bg-status-open-surface text-status-open{% else %}bg-surface-container-highest text-text-secondary{% endif %}">
+                            {% if entry.has_voted %}Voted {{ entry.voted_at|date:"g:i A" }}{% else %}Pending{% endif %}
+                        </span>
+                    </div>
+                    {% empty %}
+                    <div class="p-2 text-body-sm text-body-sm text-text-secondary">No active students enrolled.</div>
                     {% endfor %}
-                </tbody>
-</table>
-            </div>
-            {% else %}
-            <p class="hint">No votes cast yet.</p>
-            {% endif %}
-        </section>
-
-        <section class="panel attendance-panel">
-            <div class="panel-head">
-                <h2>Voting attendance</h2>
-                <span class="count-chip orange">{{ not_voted_count }} remaining</span>
-            </div>
-            <div class="attendance-summary">
-                <p class="total"><strong>{{ voted_count }}</strong> of <strong>{{ eligible }}</strong> students have voted.</p>
-                <div class="filter-pills">
-                    <button class="pill active" data-filter="all">All</button>
-                    <button class="pill" data-filter="voted">Voted ({{ voted_count }})</button>
-                    <button class="pill" data-filter="pending">Not yet voted ({{ not_voted_count }})</button>
                 </div>
             </div>
+        </div>
 
-            {% if attendance %}
-            <div class="attendance-scroll">
-                <div class="table-scroll">
-                <table class="results-table attendance-table">
-                    <thead>
-                        <tr><th>Student ID</th><th>Name</th><th>Status</th></tr>
-                    </thead>
-                    <tbody>
-                        {% for entry in attendance %}
-                        <tr data-voted="{{ entry.has_voted|yesno:'voted,pending' }}">
-                            <td>{{ entry.student.student_id }}</td>
-                            <td>{{ entry.student.full_name }}</td>
-                            <td>
-                                {% if entry.has_voted %}
-                                    <span class="status-chip voted">Voted</span>
-                                    <span class="total">{{ entry.voted_at|date:"d M, H:i" }}</span>
-                                {% else %}
-                                    <span class="status-chip pending">Not voted</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="px-4 pt-2">
+            <div class="bg-surface-card rounded-xl p-4 shadow-sm flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px] text-primary">history</span>
+                        <span class="font-label-lg text-label-lg text-text-primary font-semibold">Recent Terminal Feed</span>
+                    </div>
+                    <span class="w-2 h-2 rounded-full bg-status-open"></span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    {% for vote in recent_votes|slice:":5" %}
+                    <div class="flex items-start gap-3 p-2 rounded-lg bg-surface">
+                        <div class="p-1.5 rounded-md bg-status-open-surface text-status-open shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+                        </div>
+                        <div class="flex flex-col flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="font-label-md text-label-md text-text-primary font-semibold truncate">Ballot #{{ vote.student.student_id }}</span>
+                                <span class="font-body-sm text-body-sm text-text-secondary shrink-0">{{ vote.created_at|timesince }} ago</span>
+                            </div>
+                            <span class="font-body-sm text-body-sm text-text-secondary truncate">{{ vote.position.name }} • {{ vote.candidate.student.full_name }}{% if vote.student.class_level %} • {{ vote.student.class_level }}{% endif %}</span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="p-2 text-body-sm text-body-sm text-text-secondary">No votes cast yet.</div>
+                    {% endfor %}
                 </div>
             </div>
-            {% else %}
-            <p class="hint">No active students enrolled.</p>
-            {% endif %}
-        </section>
+        </div>
+
+        <div class="fixed bottom-20 inset-x-0 z-50 flex justify-center px-4 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-none" id="toastNotification">
+            <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-xl bg-primary text-on-primary font-label-md text-label-md">
+                <span class="material-symbols-outlined text-[18px] text-election-gold">check_circle</span>
+                <span id="mobileToastMessage">Action completed</span>
+            </div>
+        </div>
     </div>
-</div>
+
+    <form method="post" action="{% url 'voting:dashboard' %}" enctype="multipart/form-data" id="mobileCsvForm" class="hidden">
+        {% csrf_token %}
+        <input type="file" name="csv_file" accept=".csv" id="mobileCsvInput" onchange="this.form.submit()">
+    </form>
+</main>
+
+<nav class="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_-2px_10px_rgba(17,55,90,0.04)]">
+    <div class="flex justify-around items-center h-16 px-1">
+        <a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-colors" href="{% url 'voting:home' %}">
+            <span class="material-symbols-outlined text-[22px]">how_to_reg</span>
+            <span class="font-label-md text-label-md">Home</span>
+        </a>
+        <a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-colors" href="{% url 'voting:vote' %}">
+            <span class="material-symbols-outlined text-[22px]">ballot</span>
+            <span class="font-label-md text-label-md">Vote</span>
+        </a>
+        <a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-colors" href="{% url 'voting:results' %}">
+            <span class="material-symbols-outlined text-[22px]">query_stats</span>
+            <span class="font-label-md text-label-md">Results</span>
+        </a>
+        <a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-primary-container font-label-md transition-colors" href="{% url 'voting:dashboard' %}">
+            <span class="material-symbols-outlined text-[22px]">dashboard</span>
+            <span class="font-label-md">Dashboard</span>
+        </a>
+    </div>
+</nav>
 
 <script>
-(function(){
-    document.querySelectorAll('.filter-pills .pill').forEach(function(btn){
-        btn.addEventListener('click', function(){
-            document.querySelectorAll('.filter-pills .pill').forEach(function(b){ b.classList.remove('active'); });
-            btn.classList.add('active');
-            var filter = btn.getAttribute('data-filter');
-            document.querySelectorAll('.attendance-table tbody tr').forEach(function(row){
-                if(filter==='all') row.style.display='';
-                else row.style.display = row.getAttribute('data-voted')===filter ? '' : 'none';
-            });
-        });
+function filterVoters(status, btn){
+    document.querySelectorAll('#voterTableBody tr').forEach(function(row){
+        row.style.display = (status === 'all' || row.getAttribute('data-status') === status) ? '' : 'none';
     });
-})();
+    document.querySelectorAll('.filter-btn').forEach(function(b){
+        b.classList.add('text-text-secondary', 'hover:text-primary');
+        b.classList.remove('bg-primary', 'text-on-primary');
+    });
+    btn.classList.remove('text-text-secondary', 'hover:text-primary');
+    btn.classList.add('bg-primary', 'text-on-primary');
+}
+function searchVoters(q){
+    var query = (q || '').toLowerCase();
+    document.querySelectorAll('#voterTableBody tr').forEach(function(row){
+        var hay = (row.getAttribute('data-search') || '').toLowerCase();
+        row.style.display = hay.indexOf(query) !== -1 ? '' : 'none';
+    });
+}
+function filterVotersMobile(status, btn){
+    document.querySelectorAll('#voterListContainer .voter-row-m').forEach(function(row){
+        row.style.display = (status === 'all' || row.getAttribute('data-status') === status) ? '' : 'none';
+    });
+    document.querySelectorAll('.filter-btn-m').forEach(function(b){
+        b.classList.add('text-text-secondary');
+        b.classList.remove('bg-surface-card', 'text-text-primary', 'shadow-sm');
+    });
+    btn.classList.remove('text-text-secondary');
+    btn.classList.add('bg-surface-card', 'text-text-primary', 'shadow-sm');
+}
+function searchVotersMobile(q){
+    var query = (q || '').toLowerCase();
+    document.querySelectorAll('#voterListContainer .voter-row-m').forEach(function(row){
+        var hay = (row.getAttribute('data-search') || '').toLowerCase();
+        row.style.display = hay.indexOf(query) !== -1 ? '' : 'none';
+    });
+}
+function showToast(message){
+    var t = document.getElementById('toastNotification');
+    if(!t) return;
+    document.getElementById('mobileToastMessage').textContent = message;
+    t.classList.remove('translate-y-4', 'opacity-0', 'pointer-events-none');
+    setTimeout(function(){
+        t.classList.add('translate-y-4', 'opacity-0', 'pointer-events-none');
+    }, 2600);
+}
+function triggerToast(message){
+    var t = document.getElementById('adminToast');
+    if(!t) return;
+    document.getElementById('toastMessage').textContent = message;
+    t.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+    setTimeout(function(){
+        t.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+    }, 2600);
+}
 </script>
 {% endblock %}

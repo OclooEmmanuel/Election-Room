@@ -1,33 +1,70 @@
-<section class="panel" id="standings-root"
-         hx-get="{% url 'voting:dashboard_standings' %}"
-         hx-trigger="every 5s" hx-swap="outerHTML">
-    <div class="panel-head">
-        <h2>Current standings</h2>
-        <span class="count-chip">{{ standings|length }} positions</span>
+{% load num_format %}
+<div class="lg:col-span-7 flex flex-col gap-4" id="standings"
+     hx-get="{% url 'voting:dashboard_standings' %}"
+     hx-trigger="every 5s" hx-swap="outerHTML">
+    <div class="flex items-center justify-between pb-1 border-b border-border-subtle">
+        <div class="flex items-center gap-2">
+            <h2 class="font-title-lg text-base font-bold text-primary">Race Standings</h2>
+            <span class="text-xs text-text-secondary">(Encrypted Live Tally)</span>
+        </div>
+        <span class="font-mono text-xs text-text-secondary">{{ tallied|default:0|thou }} Tallied</span>
     </div>
     {% for item in standings %}
-    <div class="panel-head sub-head">
-        <h2>{{ item.position.name }} <span style="font-weight:600; color:var(--db-muted); font-size:0.85rem;">· {{ item.total }} votes</span></h2>
-    </div>
-    <div class="standing-rows">
-        {% for entry in item.candidates %}
-        <div class="standing-row{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
-            <span class="standing-name{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
-                {% if entry.candidate.photo %}
-                <img class="mini-photo" src="{{ entry.candidate.photo.url }}" alt="">
-                {% endif %}
-                {{ entry.candidate.student.full_name }}
-            </span>
-            <div class="bar">
-                <div class="bar-fill" style="width: {% widthratio entry.count item.total 100 %}%"></div>
-            </div>
-            <span class="standing-count">{{ entry.count }}</span>
+    <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+            <span class="font-label-md text-xs uppercase font-bold text-text-secondary tracking-wider">{{ item.position.name }}</span>
+            {% if item.leader and item.leader.count > 0 %}
+            <span class="text-xs text-text-secondary font-mono">{{ item.leader.percent }}% leader share</span>
+            {% endif %}
         </div>
-        {% empty %}
-        <p class="hint">No candidates for this position.</p>
-        {% endfor %}
+        <div class="flex flex-col gap-2.5">
+            {% for entry in item.candidates %}
+            {% if item.leader and entry.candidate.pk == item.leader.candidate.pk %}
+            <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                    {% if entry.candidate.photo %}
+                    <img class="w-6 h-6 rounded-full object-cover" src="{{ entry.candidate.photo.url }}" alt="">
+                    {% else %}
+                    <span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-sm text-primary">person</span></span>
+                    {% endif %}
+                    <span class="font-semibold text-primary">{{ entry.candidate.student.full_name }}</span>
+                    {% if item.leader.count > 0 %}
+                    <span class="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-bold">Leading</span>
+                    {% endif %}
+                </div>
+                <div class="flex items-center gap-2 font-mono">
+                    <span class="font-bold text-primary">{{ entry.count }}</span>
+                    <span class="text-text-secondary">{{ entry.percent }}%</span>
+                </div>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+                <div class="h-full bg-primary rounded-full" style="width: {{ entry.percent }}%"></div>
+            </div>
+            {% else %}
+            <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                    {% if entry.candidate.photo %}
+                    <img class="w-6 h-6 rounded-full object-cover" src="{{ entry.candidate.photo.url }}" alt="">
+                    {% else %}
+                    <span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-sm text-primary">person</span></span>
+                    {% endif %}
+                    <span class="text-text-primary">{{ entry.candidate.student.full_name }}</span>
+                </div>
+                <div class="flex items-center gap-2 font-mono">
+                    <span class="font-semibold text-text-primary">{{ entry.count }}</span>
+                    <span class="text-text-secondary">{{ entry.percent }}%</span>
+                </div>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+                <div class="h-full bg-secondary-container rounded-full" style="width: {{ entry.percent }}%"></div>
+            </div>
+            {% endif %}
+            {% empty %}
+            <p class="text-xs text-text-secondary">No candidates for this position.</p>
+            {% endfor %}
+        </div>
     </div>
     {% empty %}
-    <p class="hint">No positions created yet.</p>
+    <p class="text-xs text-text-secondary">No positions created yet.</p>
     {% endfor %}
-</section>
+</div>

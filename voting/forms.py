@@ -24,6 +24,8 @@ class CandidateCardSelect(forms.RadioSelect):
                     candidate.photo.url if candidate.photo else ""
                 )
                 option["label"] = candidate.student.full_name
+                option["student_class"] = candidate.student.class_level or ""
+                option["slogan"] = candidate.manifesto or ""
         return context
 
 

@@ -1,6 +1,24 @@
-<div class="vote-ballot">
-    <h1>Hi, {{ student.full_name }}</h1>
-    <p>Select <strong>one</strong> candidate for each position. You will review your choices before submitting.</p>
+<div class="vote-elec-skin">
+    <div class="verified-voter">
+        <span class="voter-avatar">{{ student.full_name|truncatechars:1|cut:"…" }}</span>
+        <span>
+            <div class="voter-name">Hi, {{ student.full_name }}</div>
+            <div class="voter-meta">
+                <span class="voter-chip verified"><span class="ms" style="font-size:1em">verified</span>Verified Voter</span>
+                <span>Student ID: {{ student.student_id }}</span>
+                {% if student.class_level %}<span>Class: {{ student.class_level }}</span>{% endif %}
+            </div>
+        </span>
+    </div>
+
+    <div class="stepper">
+        <span class="step-chip">Step 2 of 3</span>
+        <span class="step-dots">
+            <span class="step-dot done"></span>
+            <span class="step-dot active"></span>
+            <span class="step-dot"></span>
+        </span>
+    </div>
 
     {% if error %}
         <div class="error-box">{{ error }}</div>
@@ -10,14 +28,20 @@
         <div class="error-box">{{ form.non_field_errors }}</div>
     {% endif %}
 
-    <form method="post" novalidate
+    <form id="vote-form" method="post" novalidate
           hx-post="{% url 'voting:vote' %}"
           hx-target="#step-root"
           hx-swap="innerHTML">
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="position-card">
-                <legend>{{ field.label }}</legend>
+                <div class="position-legend">
+                    <span class="position-badge">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <div>
+                        <h2>{{ field.label|upper }}</h2>
+                        <p>Vote for one (1) candidate for this position.</p>
+                    </div>
+                </div>
                 {% for error in field.errors %}
                     <div class="error-text">{{ error }}</div>
                 {% endfor %}
@@ -26,6 +50,12 @@
                 </div>
             </fieldset>
         {% endfor %}
-        <button type="submit" class="btn-primary">Review My Choices</button>
+        <div class="ballot-summary">
+            <span class="sel-count">
+                <span class="sel-chip" data-sel-count>0 / 0 Selected</span>
+                <span>Your choices are locked once you confirm in Step 3.</span>
+            </span>
+            <button type="submit" class="btn-primary">Review My Choices <span class="ms" style="font-size:1.1em;margin-left:4px">arrow_forward</span></button>
+        </div>
     </form>
 </div>

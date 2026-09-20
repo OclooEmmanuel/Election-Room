@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Open+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "tertiary": "#00213f", "on-primary-fixed": "#001d36", "secondary-container": "#fd9e15", "on-tertiary-container": "#5da2ee", "error-container": "#ffdad6", "on-tertiary-fixed": "#001c37", "border-subtle": "#DCE3EA", "surface": "#f8f9ff", "surface-variant": "#d4e4fa", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#00487f", "on-secondary": "#ffffff", "secondary": "#885200", "primary": "#00213e", "on-secondary-fixed-variant": "#683d00", "status-open": "#1F8A4C", "surface-container-high": "#dae9ff", "selection-border": "#D8B200", "background": "#f8f9ff", "surface-tint": "#406186", "tertiary-fixed": "#d2e4ff", "text-secondary": "#4B5B6D", "inverse-primary": "#a8c9f4", "on-primary-container": "#80a1c9", "surface-bright": "#f8f9ff", "surface-container-low": "#eef4ff", "on-tertiary": "#ffffff", "on-secondary-container": "#663c00", "election-gold": "#FFCC4D", "on-primary": "#ffffff", "inverse-on-surface": "#e9f1ff", "surface-container-highest": "#d4e4fa", "status-open-surface": "#EBF7EE", "on-background": "#0d1d2c", "surface-container": "#e4efff", "tertiary-fixed-dim": "#a1c9ff", "secondary-fixed-dim": "#ffb869", "border-strong": "#CBD5E1", "status-closed-surface": "#FDEDEC", "admin-sidebar-bg": "#0D2B47", "surface-dim": "#ccdbf1", "status-closed": "#C0392B", "on-surface": "#0d1d2c", "on-secondary-fixed": "#2c1700", "outline-variant": "#c3c6cf", "on-surface-variant": "#43474e", "inverse-surface": "#233242", "surface-card": "#FFFFFF", "on-primary-fixed-variant": "#26496d", "text-primary": "#112233", "secondary-fixed": "#ffdcbb", "outline": "#73777f", "error": "#ba1a1a", "surface-base": "#F4F7FA", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#a8c9f4", "primary-fixed": "#d1e4ff", "tertiary-container": "#003763", "primary-container": "#11375a", "selection-yellow": "#FFD500" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1.5rem", "space-md": "1rem", "gutter-mobile": "1rem", "margin": "2rem", "space-xl": "2.5rem", "space-xs": "0.25rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-sm": "0.5rem" }, fontFamily: { "body-md": ["Inter"], "label-lg": ["Inter"], "headline-lg-mobile": ["Open Sans"], "label-sm": ["Inter"], "headline-md": ["Open Sans"], "headline-lg": ["Open Sans"], "title-lg": ["Open Sans"], "display-lg": ["Open Sans"], "body-sm": ["Inter"], "display-lg-mobile": ["Open Sans"], "headline-sm": ["Open Sans"], "label-md": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg-mobile": ["22px", { lineHeight: "28px", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.06em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "title-lg": ["16px", { lineHeight: "22px", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "display-lg-mobile": ["28px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen antialiased"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="A modern, authoritative civic seal logo for Westland Electoral Commission. A shield or circular civic emblem with an electoral ballot checkmark and clean geometric star or torch motif, navy blue and golden yellow/orange, modern flat vector style.. Design context: - Primary color: #11375a
+- Font: openSans
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UUGR05DaDt1aJ6y1r2aBZSAVrIz5J8ubAabRlb6nmDgSpW6O6WlZJYRyzRDZJ0m_jXAnn_GsTYobS11UTHonzSJ6MMAn8isGoTHOcvSenuOfAMR761RIMx8K80Ch0E5qAugFyE21dWp6YEOKGpz-lLag5N2qoM4zSgHiA74YxU3f3HPEoc3yk8WXLLk24fAKuS8r_wdnZ_9BwooDiTGiBqYjTq4VcD5FeLbwjC9Qfbj-EkRbCOUSSscPE"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">Election Room</span><span class="font-label-sm text-label-sm text-text-secondary">Results</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center gap-1.5 bg-status-open-surface px-2.5 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-status-open animate-pulse"></span><span class="font-label-sm text-label-sm text-status-open">POLLS OPEN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface flex-1"><div class="flex flex-col w-full pb-10">
+<!-- Top Ambient Banner & Certification Status -->
+<section class="px-space-md pt-space-md pb-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-container-high text-primary px-3 py-1.5 rounded-full w-fit shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-status-open" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Concluded • Final Audited Results</span>
+</div>
+<div class="mt-space-sm flex flex-col gap-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary tracking-tight">
+        Official Election Standings &amp; Results
+      </h1>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+        Election Room Junior High School Prefectural General Election 2026. Certified under Election Room Electoral Act.
+      </p>
+</div>
+<!-- Quick Actions Mobile Row -->
+<div class="grid grid-cols-2 gap-space-sm mt-space-md">
+<button class="flex items-center justify-center gap-2 h-11 bg-primary text-on-primary rounded-lg shadow-sm active:scale-[0.98] transition-transform" id="btn-export-pdf">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span class="font-label-lg text-label-lg">Export PDF</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-11 bg-surface-container-low text-primary rounded-lg shadow-sm active:scale-[0.98] transition-transform" id="btn-share-results">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+<span class="font-label-lg text-label-lg">Share Results</span>
+</button>
+</div>
+</section>
+<!-- Key Metrics 2x2 Bento Grid -->
+<section class="px-space-md mt-space-sm">
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Metric 1: Voter Participation -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Participation</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">how_to_vote</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-text-primary tracking-tight">92.4%</span>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">1,248 / 1,350 Voters</p>
+</div>
+</div>
+<!-- Metric 2: Ballots Cast -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Total Ballots</span>
+<span class="material-symbols-outlined text-primary text-[20px]">ballot</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-text-primary tracking-tight">1,248</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-open"></span>
+<span class="font-body-sm text-body-sm text-text-secondary">0 Spoiled (100%)</span>
+</div>
+</div>
+</div>
+<!-- Metric 3: Classroom Stations -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-status-open"></div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Stations</span>
+<span class="material-symbols-outlined text-status-open text-[20px]">domain</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-text-primary tracking-tight">6 / 6</span>
+<p class="font-body-sm text-body-sm text-status-open mt-0.5 font-semibold">100% Reported</p>
+</div>
+</div>
+<!-- Metric 4: Integrity Verification -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Audit Status</span>
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<div>
+<span class="font-title-lg text-title-lg text-text-primary leading-tight block">Audited</span>
+<p class="font-body-sm text-body-sm text-status-open font-semibold mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">done_all</span> Verified Valid
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Portfolio Results Section -->
+<section class="px-space-md mt-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">military_tech</span>
+<h2 class="font-title-lg text-title-lg text-text-primary">Declared Standings by Portfolio</h2>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary bg-surface-container-high px-2 py-0.5 rounded">3 Portfolios</span>
+</div>
+<!-- Portfolio 1: Senior Prefect (Boys) -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm transition-all duration-200" id="portfolio-boys">
+<div class="flex items-start justify-between pb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Executive Office</span>
+<h3 class="font-title-lg text-title-lg text-text-primary">Senior Prefect (Boys)</h3>
+</div>
+<div class="flex items-center gap-1 bg-status-open-surface px-2.5 py-1 rounded-full text-status-open">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">ELECTED</span>
+</div>
+</div>
+<!-- Winner Highlight Card -->
+<div class="bg-surface-container-low rounded-lg p-space-sm mt-1 mb-space-md flex items-center gap-space-sm relative overflow-hidden">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Official photographic portrait of candidate Samuel Addo, a teenage African high school student wearing a pristine navy blue school blazer, white dress shirt, and gold-striped tie against a clean studio backdrop. Confident warm collegiate expression with natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhnSSi_mSn0A57ECAviBVbQu4n40OOiRtMshM3xB8R-CmPSdhL4MrESzhimAGTPfKYRgH4_D3cKmrRbryu1NF-_hUPFXfZuIrzcKR_4xNycs5SBKVD0obZe_2ZIceOqa2MJapndvUwGQ_Ohlh7k9-0MiviXN9VlpfXu1lDGMko84WcUiZuK8JOZa_ZPswSkivXSxie95rouGHija8FuJOVLDEcAwJvOmSnBzaMu0c"/>
+<div class="absolute bottom-0 right-0 bg-secondary text-on-secondary rounded-tl p-0.5">
+<span class="material-symbols-outlined text-[12px] block" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h4 class="font-title-lg text-title-lg text-text-primary truncate">Samuel Addo</h4>
+<span class="bg-election-gold text-on-secondary-container px-1.5 py-0.2 rounded font-label-sm text-label-sm">Winner</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">642 Votes • Absolute Majority</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm text-primary">51.4%</span>
+</div>
+</div>
+<!-- Candidates Stack with Clean Progress Bars -->
+<div class="flex flex-col gap-space-sm">
+<!-- Winner Bar -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-primary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-open"></span> Samuel Addo
+            </span>
+<span class="font-label-sm text-label-sm text-text-primary font-bold">51.4% (642)</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-status-open rounded-full" style="width: 51.4%;"></div>
+</div>
+</div>
+<!-- Runner Up 1 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Emmanuel Osei
+            </span>
+<span class="font-label-sm text-label-sm text-text-secondary">35.1% (438)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-text-secondary rounded-full" style="width: 35.1%;"></div>
+</div>
+</div>
+<!-- Runner Up 2 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> David Quaye
+            </span>
+<span class="font-label-sm text-label-sm text-text-secondary">13.5% (168)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 13.5%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Portfolio 2: Senior Prefect (Girls) -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm transition-all duration-200" id="portfolio-girls">
+<div class="flex items-start justify-between pb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Executive Office</span>
+<h3 class="font-title-lg text-title-lg text-text-primary">Senior Prefect (Girls)</h3>
+</div>
+<div class="flex items-center gap-1 bg-status-open-surface px-2.5 py-1 rounded-full text-status-open">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">ELECTED</span>
+</div>
+</div>
+<!-- Winner Highlight Card -->
+<div class="bg-surface-container-low rounded-lg p-space-sm mt-1 mb-space-md flex items-center gap-space-sm relative overflow-hidden">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Official high school electoral portrait of candidate Abigail Asante, a focused young Black female student in a dark navy scholastic blazer with school crest, yellow collar accents, cheerful leader smile, crisp institutional lighting, portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH3MjZpMhpVpgxqBVAVrB_Q8JIc--AIk_hvx59nts1WmHt2hTMWIhBzTpn3GRXMSNiDQ7DR0unS94NKGyUG47OvbUdGFrUMF_0j6_8TNKUsfcWvW-yXohc6Vtd0W73K3BB1PNYVcRjPShY-PsKwF_193RQe8ilR9s1z1ZNj4lSk3dlilA4gQns8t36jeayrXhxANwS8NYmVjEmBAQIZfr3KHz3urFrLdq7FbqUIeg"/>
+<div class="absolute bottom-0 right-0 bg-secondary text-on-secondary rounded-tl p-0.5">
+<span class="material-symbols-outlined text-[12px] block" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h4 class="font-title-lg text-title-lg text-text-primary truncate">Abigail Asante</h4>
+<span class="bg-election-gold text-on-secondary-container px-1.5 py-0.2 rounded font-label-sm text-label-sm">Winner</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">710 Votes • Decisive Victory</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm text-primary">56.9%</span>
+</div>
+</div>
+<!-- Candidates Stack -->
+<div class="flex flex-col gap-space-sm">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-primary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-open"></span> Abigail Asante
+            </span>
+<span class="font-label-sm text-label-sm text-text-primary font-bold">56.9% (710)</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-status-open rounded-full" style="width: 56.9%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Grace Mensah
+            </span>
+<span class="font-label-sm text-label-sm text-text-secondary">43.1% (538)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-text-secondary rounded-full" style="width: 43.1%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Portfolio 3: Academic Prefect -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm transition-all duration-200" id="portfolio-academic">
+<div class="flex items-start justify-between pb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Academic Affairs</span>
+<h3 class="font-title-lg text-title-lg text-text-primary">Academic Prefect</h3>
+</div>
+<div class="flex items-center gap-1 bg-secondary-fixed text-on-secondary-fixed px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm font-bold">LANDSLIDE</span>
+</div>
+</div>
+<!-- Winner Highlight Card -->
+<div class="bg-surface-container-low rounded-lg p-space-sm mt-1 mb-space-md flex items-center gap-space-sm relative overflow-hidden">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Headshot of high school student Nana Yaa Darko, wearing wire-rimmed glasses and uniform blazer, confident academic champion smile, poised dignified stance, navy blue background with soft warm gold rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh6vu_eOGRcwUywL4IpTaR3crdxmeBSzIpBRIwIMBtKeGTSXmDScLtYJDwfPBeagCOaBljuc0VTlbvbEWn4xdAip0kHtjA0EXAoEVExT09qbN-tqk5tmnFXr3V8uf_sEfjvPzGwlBuyNInNbLKbJoxj0XeqFRPRk-QGQ607fUWLZZrg8zs6Wr9BlmQPRxlNxOjYUg7978XXBAmcFwkGecDUSdERw_eGgRuq_uyaJo"/>
+<div class="absolute bottom-0 right-0 bg-secondary text-on-secondary rounded-tl p-0.5">
+<span class="material-symbols-outlined text-[12px] block" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h4 class="font-title-lg text-title-lg text-text-primary truncate">Nana Yaa Darko</h4>
+<span class="bg-election-gold text-on-secondary-container px-1.5 py-0.2 rounded font-label-sm text-label-sm">Winner</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">820 Votes • Supermajority</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm text-primary">65.7%</span>
+</div>
+</div>
+<!-- Candidates Stack -->
+<div class="flex flex-col gap-space-sm">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-primary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-open"></span> Nana Yaa Darko
+            </span>
+<span class="font-label-sm text-label-sm text-text-primary font-bold">65.7% (820)</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-status-open rounded-full" style="width: 65.7%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Kelvin Boateng
+            </span>
+<span class="font-label-sm text-label-sm text-text-secondary">34.3% (428)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-text-secondary rounded-full" style="width: 34.3%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Turnout by Station & Demographics Breakdown -->
+<section class="px-space-md mt-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+<h2 class="font-title-lg text-title-lg text-text-primary">Turnout by Class Station</h2>
+</div>
+<span class="font-label-sm text-label-sm text-status-open bg-status-open-surface px-2 py-0.5 rounded-full font-bold">All Reconciled</span>
+</div>
+<!-- Stations Card -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-3 rounded-lg">
+<span class="font-label-md text-label-md text-text-primary font-semibold">Station / Class</span>
+<span class="font-label-sm text-label-sm text-text-secondary">Turnout / Registered</span>
+</div>
+<!-- Station Row 1 -->
+<div class="flex items-center justify-between py-1.5 px-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J3A</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 3 Alpha (Auditorium)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">96.8% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">215 / 222</span>
+</div>
+<!-- Station Row 2 -->
+<div class="flex items-center justify-between py-1.5 px-2 bg-surface-container-low/50 rounded-md">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J3B</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 3 Beta (Lab 1)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">94.2% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">211 / 224</span>
+</div>
+<!-- Station Row 3 -->
+<div class="flex items-center justify-between py-1.5 px-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J2A</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 2 Alpha (Room 12)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">91.5% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">206 / 225</span>
+</div>
+<!-- Station Row 4 -->
+<div class="flex items-center justify-between py-1.5 px-2 bg-surface-container-low/50 rounded-md">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J2B</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 2 Beta (Room 14)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">90.7% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">204 / 225</span>
+</div>
+<!-- Station Row 5 -->
+<div class="flex items-center justify-between py-1.5 px-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J1A</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 1 Alpha (Library Annex)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">89.9% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">205 / 228</span>
+</div>
+<!-- Station Row 6 -->
+<div class="flex items-center justify-between py-1.5 px-2 bg-surface-container-low/50 rounded-md">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-fixed text-primary flex items-center justify-center font-label-sm text-label-sm">J1B</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary leading-tight">JHS 1 Beta (Main Hall)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">91.2% Turnout</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-text-primary font-bold">207 / 226</span>
+</div>
+</div>
+<!-- Demographic Split Mini Summary -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider block mb-2">Voter Demographics Reconciled</span>
+<div class="flex items-center justify-between gap-4">
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-sm text-body-sm text-text-secondary">Female Voters</span>
+<span class="font-label-md text-label-md text-primary font-bold">52.8% (659)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 52.8%;"></div>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-sm text-body-sm text-text-secondary">Male Voters</span>
+<span class="font-label-md text-label-md text-primary font-bold">47.2% (589)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 47.2%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Official Commission Certificate of Valid Election -->
+<section class="px-space-md mt-space-lg mb-space-md">
+<div class="bg-gradient-to-br from-surface-card via-surface-container-low to-surface-card p-space-md rounded-xl shadow-md relative overflow-hidden">
+<!-- Watermark Civic Torch Emblem -->
+<div class="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-primary">
+<span class="material-symbols-outlined text-[160px]">verified_user</span>
+</div>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-election-gold shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">OFFICIAL CERTIFICATION</span>
+<h3 class="font-title-lg text-title-lg text-primary tracking-tight">W.E.C. Certificate of Valid Election</h3>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary leading-relaxed mb-space-md">
+        This document formally certifies that the ballots tallied herein adhere to all constitutional provisions, digital voting safeguards, and oversight standards established under the Westland Electoral Commission charter.
+      </p>
+<div class="bg-surface-card/80 p-space-sm rounded-lg backdrop-blur-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Board Signature</span>
+<span class="font-title-lg text-title-lg text-text-primary italic font-serif">Mrs. Elizabeth Hanson</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Chair, Westland Electoral Commission</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-text-secondary">Audit Hash</span>
+<span class="font-label-sm text-label-sm font-mono text-primary font-bold">0x7F9A...B302</span>
+<span class="font-body-sm text-body-sm text-status-open font-semibold">Seal Affixed</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  (function initCertifiedResultsInteractions() {
+    const btnPdf = document.getElementById('btn-export-pdf');
+    const btnShare = document.getElementById('btn-share-results');
+
+    if (btnPdf) {
+      btnPdf.addEventListener('click', () => {
+        const originalText = btnPdf.innerHTML;
+        btnPdf.innerHTML = `
+          <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+          <span class="font-label-lg text-label-lg">Generating...</span>
+        `;
+        setTimeout(() => {
+          btnPdf.innerHTML = `
+            <span class="material-symbols-outlined text-[18px] text-status-open">download_done</span>
+            <span class="font-label-lg text-label-lg">Saved</span>
+          `;
+          setTimeout(() => {
+            btnPdf.innerHTML = originalText;
+          }, 2000);
+        }, 800);
+      });
+    }
+
+    if (btnShare) {
+      btnShare.addEventListener('click', async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: 'Westland Electoral Commission - Certified Results 2026',
+              text: 'The official certified election results for Westland JHS have been verified and published.',
+              url: window.location.href,
+            });
+          } catch (err) {
+            // User cancelled or share unhandled
+          }
+        } else {
+          const originalText = btnShare.innerHTML;
+          btnShare.innerHTML = `
+            <span class="material-symbols-outlined text-[18px] text-status-open">content_copy</span>
+            <span class="font-label-lg text-label-lg">Link Copied!</span>
+          `;
+          setTimeout(() => {
+            btnShare.innerHTML = originalText;
+          }, 1800);
+        }
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_10px_rgba(17,55,90,0.04)]" data-active-classes="text-primary-container font-label-md"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-all" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">how_to_reg</span><span class="font-label-md text-label-md">Home</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-all" data-path="vote" href="#"><span class="material-symbols-outlined text-[22px]">ballot</span><span class="font-label-md text-label-md">Vote</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 transition-all text-primary-container font-label-md" data-path="results" href="#"><span class="material-symbols-outlined text-[22px]">query_stats</span><span class="font-label-md text-label-md">Results</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-14 text-text-secondary transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-md text-label-md">Dashboard</span></a></div></nav></body></html>

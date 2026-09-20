@@ -1,36 +1,35 @@
-<div class="stats-grid" id="stats-root"
+{% load num_format %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="stats-root"
      hx-get="{% url 'voting:dashboard_stats' %}"
      hx-trigger="every 5s" hx-swap="outerHTML">
-    <div class="stat-card">
-        <div class="stat-top">
-            <span class="stat-value">{{ eligible }}</span>
-            <span class="stat-icon">▤</span>
+    <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all">
+        <span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Eligible Voters</span>
+        <div class="my-2">
+            <span class="font-display-lg text-3xl font-bold text-primary tracking-tight">{{ eligible|thou }}</span>
         </div>
-        <span class="stat-label">Eligible voters</span>
-        <div class="stat-bar"><div style="width: 100%"></div></div>
+        <div class="text-xs text-text-secondary flex items-center justify-between">
+            <span class="">Registered</span>
+            <span class="font-semibold text-primary">100%</span>
+        </div>
     </div>
-    <div class="stat-card">
-        <div class="stat-top">
-            <span class="stat-value">{{ voters }}</span>
-            <span class="stat-icon">✓</span>
+    <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all">
+        <span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Votes Cast</span>
+        <div class="my-2">
+            <span class="font-display-lg text-3xl font-bold text-primary tracking-tight">{{ voters|thou }}</span>
         </div>
-        <span class="stat-label">Students who voted</span>
-        <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio voters eligible 100 %}{% else %}0{% endif %}%"></div></div>
+        <div class="text-xs text-text-secondary flex items-center justify-between">
+            <span class="">Participation</span>
+            <span class="font-semibold text-status-open">{{ turnout }}%</span>
+        </div>
     </div>
-    <div class="stat-card">
-        <div class="stat-top">
-            <span class="stat-value">{{ total_votes }}</span>
-            <span class="stat-icon">●</span>
+    <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all">
+        <span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Total Ballots</span>
+        <div class="my-2">
+            <span class="font-display-lg text-3xl font-bold text-primary tracking-tight">{{ total_votes|thou }}</span>
         </div>
-        <span class="stat-label">Total votes cast</span>
-        <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio total_votes eligible 100 %}{% else %}0{% endif %}%"></div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-top">
-            <span class="stat-value">{{ turnout }}%</span>
-            <span class="stat-icon">%</span>
+        <div class="text-xs text-text-secondary flex items-center justify-between">
+            <span class="">Active Slates</span>
+            <span class="font-semibold text-primary">{{ office_count|default:0 }} Role{{ office_count|pluralize }}</span>
         </div>
-        <span class="stat-label">Voter turnout</span>
-        <div class="stat-bar"><div style="width: {{ turnout }}%"></div></div>
     </div>
 </div>

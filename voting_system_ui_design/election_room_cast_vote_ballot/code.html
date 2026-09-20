@@ -1,0 +1,745 @@
+<!DOCTYPE html><html lang="en" style="width: 1280px; height: 2365px; overflow: hidden; position: relative;"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Open+Sans:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "outline-variant": "#c3c6cf",
+          "secondary-container": "#fd9e15",
+          "secondary-fixed-dim": "#ffb869",
+          "on-primary-fixed-variant": "#26496d",
+          "on-surface-variant": "#43474e",
+          "surface-tint": "#406186",
+          "on-tertiary": "#ffffff",
+          "on-secondary-fixed": "#2c1700",
+          "primary-fixed": "#d1e4ff",
+          "text-primary": "#112233",
+          "surface-container-highest": "#d4e4fa",
+          "tertiary-fixed-dim": "#a1c9ff",
+          "on-background": "#0d1d2c",
+          "election-gold": "#FFCC4D",
+          "border-subtle": "#DCE3EA",
+          "surface": "#f8f9ff",
+          "surface-variant": "#d4e4fa",
+          "surface-container-high": "#dae9ff",
+          "surface-bright": "#f8f9ff",
+          "surface-card": "#FFFFFF",
+          "on-error-container": "#93000a",
+          "error-container": "#ffdad6",
+          "on-surface": "#0d1d2c",
+          "primary-fixed-dim": "#a8c9f4",
+          "secondary": "#885200",
+          "primary-container": "#11375a",
+          "status-open-surface": "#EBF7EE",
+          "admin-sidebar-bg": "#0D2B47",
+          "outline": "#73777f",
+          "tertiary": "#00213f",
+          "surface-base": "#F4F7FA",
+          "text-secondary": "#4B5B6D",
+          "surface-dim": "#ccdbf1",
+          "on-secondary-container": "#663c00",
+          "selection-border": "#D8B200",
+          "primary": "#00213e",
+          "on-tertiary-fixed-variant": "#00487f",
+          "tertiary-fixed": "#d2e4ff",
+          "border-strong": "#CBD5E1",
+          "inverse-primary": "#a8c9f4",
+          "background": "#f8f9ff",
+          "selection-yellow": "#FFD500",
+          "on-primary": "#ffffff",
+          "status-closed-surface": "#FDEDEC",
+          "on-secondary": "#ffffff",
+          "error": "#ba1a1a",
+          "inverse-surface": "#233242",
+          "status-open": "#1F8A4C",
+          "secondary-fixed": "#ffdcbb",
+          "on-secondary-fixed-variant": "#683d00",
+          "tertiary-container": "#003763",
+          "inverse-on-surface": "#e9f1ff",
+          "on-tertiary-fixed": "#001c37",
+          "surface-container-low": "#eef4ff",
+          "status-closed": "#C0392B",
+          "on-primary-fixed": "#001d36",
+          "surface-container": "#e4efff",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-container": "#80a1c9",
+          "on-tertiary-container": "#5da2ee",
+          "on-error": "#ffffff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "margin": "2rem",
+          "space-sm": "0.5rem",
+          "space-xl": "2.5rem",
+          "space-lg": "1.5rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-md": "1rem",
+          "gutter": "1.5rem"
+        },
+        "fontFamily": {
+          "label-lg": [
+            "Inter"
+          ],
+          "headline-sm": [
+            "Open Sans"
+          ],
+          "label-sm": [
+            "Inter"
+          ],
+          "headline-lg-mobile": [
+            "Open Sans"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "title-lg": [
+            "Open Sans"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Open Sans"
+          ],
+          "headline-lg": [
+            "Open Sans"
+          ],
+          "label-md": [
+            "Inter"
+          ],
+          "display-lg": [
+            "Open Sans"
+          ],
+          "display-lg-mobile": [
+            "Open Sans"
+          ]
+        },
+        "fontSize": {
+          "label-lg": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "600"
+            }
+          ],
+          "label-sm": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.06em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-lg-mobile": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "400"
+            }
+          ],
+          "title-lg": [
+            "16px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-md": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.04em",
+              "fontWeight": "600"
+            }
+          ],
+          "display-lg": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "display-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "34px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(17,55,90,0.06)]"><div class="h-1 bg-gradient-to-r from-election-gold via-secondary-container to-election-gold w-full"></div><div class="h-20 max-w-7xl mx-auto px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-md"><div class="flex items-center justify-center p-space-xs rounded-full bg-surface-container-low"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCduLdt9zuO2Ldel4GzN80E0ynwoWIWJmT-DG6dMX6Zj9ktxlo_IiQTT02v74YSlKV59YMZaMqUxWwCMdZsnbzUfaUMldTbqKrZJOaxcO48bWfQUmNuCHwznTJCXe4LjmYWts_bJl6fXuH2I2CC4JgvZn16aBTrIyvy7oxzApEdEPD9FL-W234sf5NwfgjimE025uq7W8fnfXmi01Ilt5RI6MnzRx9rg9kn4axpifnuu8yBEXVxKibw"></div><div class="flex flex-col"><span class="font-title-lg text-title-lg text-primary tracking-tight leading-none uppercase">ELECTORAL COMMISSION</span><span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider mt-0.5">Election Room Junior High School Civic Voting Portal</span></div></div><nav class="hidden lg:flex items-center gap-space-sm" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg px-space-md py-space-sm shadow-sm"><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg" data-path="home" href="#">Home</a><a aria-current="page" class="transition-colors bg-primary-container text-on-primary font-bold rounded-lg px-space-md py-space-sm shadow-sm" data-path="cast-vote" href="#">Cast Vote</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg" data-path="live-results" href="#">Live Results</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg" data-path="staff-dashboard" href="#">Staff Dashboard</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg" data-path="admin-portal" href="#">Admin</a></nav><div class="flex items-center gap-space-md"><div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-status-open-surface"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-open opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-status-open"></span></span><span class="font-label-sm text-label-sm text-status-open uppercase tracking-wider font-bold">Election OPEN</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCduLdt9zuO2Ldel4GzN80E0ynwoWIWJmT-DG6dMX6Zj9ktxlo_IiQTT02v74YSlKV59YMZaMqUxWwCMdZsnbzUfaUMldTbqKrZJOaxcO48bWfQUmNuCHwznTJCXe4LjmYWts_bJl6fXuH2I2CC4JgvZn16aBTrIyvy7oxzApEdEPD9FL-W234sf5NwfgjimE025uq7W8fnfXmi01Ilt5RI6MnzRx9rg9kn4axpifnuu8yBEXVxKibw"></div></div></header><main class="w-full pt-20 bg-surface flex-1"><div class="flex flex-col w-full relative">
+<!-- Subtle Ambient Backdrop Accents -->
+<div class="absolute -top-12 left-1/4 w-96 h-96 bg-election-gold/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute top-1/2 right-10 w-96 h-96 bg-primary-fixed/35 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Voter Session Diagnostic Bar -->
+<section class="w-full bg-surface-card shadow-sm">
+<div class="max-w-6xl mx-auto px-margin py-space-md flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold shadow-inner">
+<span class="material-symbols-outlined text-xl">how_to_reg</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-lg text-title-lg text-text-primary">Kwame Mensah</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-open-surface text-status-open font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">verified</span>
+              Verified Voter
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary">Student ID: <code class="font-mono text-primary font-semibold">WJH-2026-0842</code> • Class: JHS 3B</span>
+</div>
+</div>
+<div class="flex items-center gap-space-lg">
+
+<div class="hidden sm:flex items-center gap-1.5 text-text-secondary">
+
+
+</div>
+</div>
+</div>
+</section>
+<!-- Instructions & Stepper Overview -->
+<div class="max-w-6xl mx-auto w-full px-margin pt-space-lg pb-space-sm">
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="inline-flex items-center gap-2 text-primary font-bold uppercase font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+          Step 2 of 3 • Official Ballot Cast
+        </div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Select Your 2026 Student Prefects</h1>
+<p class="font-body-md text-body-md text-text-secondary max-w-2xl">
+          Hi, Kwame Mensah. Select exactly <strong class="text-primary font-semibold">ONE</strong> candidate for each category. You will review and confirm all choices before cryptographic submission.
+        </p>
+</div>
+<div class="flex items-center gap-3 bg-surface-card p-space-sm rounded-lg shadow-sm w-full md:w-auto">
+<div class="text-center px-space-sm">
+<div class="font-label-sm text-label-sm text-text-secondary uppercase">Progress</div>
+<div class="font-headline-sm text-headline-sm text-primary font-bold"><span id="header-progress-count" class="">3</span>/3 Done</div>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-status-open-surface text-status-open">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Ballot Main Canvas -->
+<main class="max-w-6xl mx-auto w-full px-margin py-space-md space-y-space-xl pb-36">
+<!-- POSITION 1: SENIOR PREFECT (BOYS) -->
+<section class="bg-surface-card rounded-xl p-space-lg shadow-sm space-y-space-md" data-category="sp-boys">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-sm">
+<div>
+<div class="flex items-center gap-2">
+
+<h2 class="font-headline-md text-headline-md text-primary font-bold">SENIOR PREFECT (BOYS)</h2>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">Vote for one (1) executive candidate to lead the student body council.</p>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-open font-semibold bg-status-open-surface px-space-sm py-1 rounded-full w-fit">
+<span class="material-symbols-outlined text-sm">check_circle</span> Choice Recorded
+        </span>
+</div>
+<!-- Candidate Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Candidate 1A -->
+<div class="candidate-card group cursor-pointer rounded-xl bg-surface-container-low transition-all duration-200 overflow-hidden hover:shadow-md flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'sp-boys', 'Emmanuel Osei', 'JHS 3A')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-container-high mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Official school prefect portrait of Emmanuel Osei, an ambitious Westland junior high student wearing a neat navy blue school uniform blazer, crisp collar, smiling confidently against an institutional neutral background in soft studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCadYya_MyZcxTp8woCpupyG8roRjFMxyzL6lTopyI95eONtciNFmKajWu9orefkarj-7WnwVh_v_U5uFiJDb8Qvk17hTlrrLGROC-IubD9bjNHJ4O7L426KXQv-A1prajRGJL2S__lsrUKQK9tQ-nHoxLydhArqazlnUeBHPGkK52oRxftL2inr1Rh16gHEKUjXfhHEU8Hp9gCuSA052DMd754VZdShTbulJYq7ZmZHNilNUHS_fBG">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary/90 text-on-primary font-label-sm text-label-sm">Class JHS 3A</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary">Emmanuel Osei</h3>
+<p class="font-body-sm text-body-sm text-text-secondary italic line-clamp-2">“Integrity, Discipline &amp; Academic Excellence”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-medium">Click to select</span>
+<div class="w-6 h-6 rounded-full bg-surface-card flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+</div>
+</div>
+<!-- Candidate 1B (SELECTED STATE) -->
+<div class="candidate-card is-selected cursor-pointer rounded-xl bg-selection-yellow shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'sp-boys', 'Samuel Addo', 'JHS 3B')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-card mb-space-sm shadow-inner">
+<img class="w-full h-full object-cover scale-100" data-alt="Charismatic student leader Samuel Addo smiling warmly in a dark navy junior high school uniform blazer with institutional gold tie, crisp warm morning lighting, professional student election campaign photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0vr5Is5mkdiB86-ysF7R3DCVSDtDdpfVIklrNskDHZTjwl-xwgsatk0hHDYsMGuGJ_CgO0MXgZqZ4cxg6R8lXP28TNe_YI1fk2xEFdbHlhNPGlQVEe4mou-fxiAdIoLlt83IlHM6v51g-dLBhZaEBEq_jRjWJEfajcXlRmeqgeT_cxwNwJv1uF83v3hktEDFgbL5Ahy6lC1L3Wn2iCxgOV_lqHpi371gsWJIv9TcObAF2gxWgFWVe">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Class JHS 3B</span>
+<span class="absolute top-2 right-2 px-2 py-1 rounded bg-secondary-container text-text-primary font-label-sm text-label-sm font-bold shadow-sm">Lead Choice</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary font-bold">Samuel Addo</h3>
+<p class="font-body-sm text-body-sm text-text-primary font-medium italic line-clamp-2">“Action for Every Student”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-primary font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">done_all</span> Selected Choice
+            </span>
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+<!-- Candidate 1C -->
+<div class="candidate-card group cursor-pointer rounded-xl bg-surface-container-low transition-all duration-200 overflow-hidden hover:shadow-md flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'sp-boys', 'David Quaye', 'JHS 3C')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-container-high mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Student prefect nominee David Quaye poised in uniform against a clean architectural library backdrop, soft directional daylight, professional junior high election portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPep96584z4ywT3-JtVCOpWpOcVL5rrhRFZjKCYtTn_4Y2jJARsm3LGZLST3tBPxbtoILwMen1L15uKPBXsJJZLicnbpdCrzr1Tf0bC_HvDuZ1KfdZLkKlKnJAexovMGExAnA8JVh9DC0MkB59q4yp9uHt-1hUVOj1I_1VhfLzvU-HEnQ8PqufsfAWlXOiTySrZch9gIkh9iNfB-pCTf7GmA9ML3jxJ5fW8FxusySEpl_UotCGB46P">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary/90 text-on-primary font-label-sm text-label-sm">Class JHS 3C</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary">David Quaye</h3>
+<p class="font-body-sm text-body-sm text-text-secondary italic line-clamp-2">“Leadership Through Service”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-medium">Click to select</span>
+<div class="w-6 h-6 rounded-full bg-surface-card flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- POSITION 2: SENIOR PREFECT (GIRLS) -->
+<section class="bg-surface-card rounded-xl p-space-lg shadow-sm space-y-space-md" data-category="sp-girls">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-sm">
+<div>
+<div class="flex items-center gap-2">
+
+<h2 class="font-headline-md text-headline-md text-primary font-bold">SENIOR PREFECT (GIRLS)</h2>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">Vote for one (1) executive candidate to represent the student governance body.</p>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-open font-semibold bg-status-open-surface px-space-sm py-1 rounded-full w-fit">
+<span class="material-symbols-outlined text-sm">check_circle</span> Choice Recorded
+        </span>
+</div>
+<!-- Candidate Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Candidate 2A (SELECTED STATE) -->
+<div class="candidate-card is-selected cursor-pointer rounded-xl bg-selection-yellow shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'sp-girls', 'Abigail Asante', 'JHS 3A')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-card mb-space-sm shadow-inner">
+<img class="w-full h-full object-cover" data-alt="High quality studio school portrait of Abigail Asante, an articulate female student with neat braided hair wearing school tie and navy blazer, focused engaged expression, natural studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW8kJzGrSUrHPYj8e_77jpT31jQzAkfnyhIVJ2Gckibv4B8jOJReFhkpOtIufcK7VtY-ODtHHfLDCT04jj_YIaMRsFy8fz_2whzlY4S7t7FD8V8qNPG_GDgLP_xJqndfPzKeekqekiGg0F8VoXqiAbcVhDlMW9_9j0ORDAgmAmI6gDtQ-Hj9m766jQxuMHMu0m8AlOHK2qVvWIpj_zLo8BUyxiCobdXKopsq66kn1dQZPy1cQzwoiW">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Class JHS 3A</span>
+<span class="absolute top-2 right-2 px-2 py-1 rounded bg-secondary-container text-text-primary font-label-sm text-label-sm font-bold shadow-sm">Lead Choice</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary font-bold">Abigail Asante</h3>
+<p class="font-body-sm text-body-sm text-text-primary font-medium italic line-clamp-2">“Empowering Student Voices”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-primary font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">done_all</span> Selected Choice
+            </span>
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+<!-- Candidate 2B -->
+<div class="candidate-card group cursor-pointer rounded-xl bg-surface-container-low transition-all duration-200 overflow-hidden hover:shadow-md flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'sp-girls', 'Grace Mensah', 'JHS 3B')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-container-high mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Candidate Grace Mensah looking approachable and poised, standard Westland academy uniform, warm neutral backdrop, soft daylight portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb18hmguSakXsbWupbzp51E_t1T-t3eazLXK3sh_-9KwIJdK5Oed2GnLcABYJT0yoaIaTnVCIMpvTtYkxt-s71ihg98MuOhYRJoH5mpQ024jSKxqy7wMXTPYbsUZFLpvkGbwT1_9TYji8b-_AX3BTeslNejm9HGVfruvm2zYwMQE5UIpPhzeQ-Fi0eLWzOIviB12crFRlnZA0EXf82lwgPt5iyvGQQLkh9ZbR3cPEZ6-QqtVkjaanW">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary/90 text-on-primary font-label-sm text-label-sm">Class JHS 3B</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary">Grace Mensah</h3>
+<p class="font-body-sm text-body-sm text-text-secondary italic line-clamp-2">“Innovation and Unity”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-medium">Click to select</span>
+<div class="w-6 h-6 rounded-full bg-surface-card flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+</div>
+</div>
+<!-- Empty slot design for balance / information card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg flex flex-col justify-center items-center text-center shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-high text-primary flex items-center justify-center mb-space-sm">
+<span class="material-symbols-outlined text-2xl">how_to_vote</span>
+</div>
+<h4 class="font-title-lg text-title-lg text-primary">Voting Guidelines</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1 max-w-xs">
+            Female Prefect duties include leading student council forums, morning assemblies, and academic mentoring.
+          </p>
+<span class="font-label-sm text-label-sm text-secondary-container mt-3 font-semibold uppercase tracking-wider">Election Room Constitution Art. IV</span>
+</div>
+</div>
+</section>
+<!-- POSITION 3: ACADEMIC PREFECT -->
+<section class="bg-surface-card rounded-xl p-space-lg shadow-sm space-y-space-md" data-category="academic">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-sm">
+<div>
+<div class="flex items-center gap-2">
+
+<h2 class="font-headline-md text-headline-md text-primary font-bold">ACADEMIC PREFECT</h2>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">Vote for one (1) candidate to oversee student peer tutoring &amp; library initiatives.</p>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-open font-semibold bg-status-open-surface px-space-sm py-1 rounded-full w-fit">
+<span class="material-symbols-outlined text-sm">check_circle</span> Choice Recorded
+        </span>
+</div>
+<!-- Candidate Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Candidate 3A -->
+<div class="candidate-card group cursor-pointer rounded-xl bg-surface-container-low transition-all duration-200 overflow-hidden hover:shadow-md flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'academic', 'Kelvin Boateng', 'JHS 3C')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-container-high mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Student scholar Kelvin Boateng in school uniform blazer holding books in a modern science laboratory, focused demeanor, crisp soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLY4TpjVVMsbvFT01xdcvRRWXC2_R--RgXVgSViwZKa3Sn-C2iZDAOJrhBimVNO6d2gR7vMNFpppL7fJWrREr42lmZMZ5dxtI546keZNzzcLMU2GURPIWnes3EQjDMEtXwajhakUf7TJ2zxx0Z1JlnS8dCtrkSIapzWJDEtDQKEeFRD6KBarUYC-s3H6zkaGL5ya1IGp2cu7EqIYZxyqIPbJfXqJaWS4wvFEKlg-I2nUbbI7JRx5tJ">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary/90 text-on-primary font-label-sm text-label-sm">Class JHS 3C</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary">Kelvin Boateng</h3>
+<p class="font-body-sm text-body-sm text-text-secondary italic line-clamp-2">“Knowledge, Mentorship &amp; Excellence for All”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-medium">Click to select</span>
+<div class="w-6 h-6 rounded-full bg-surface-card flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+</div>
+</div>
+<!-- Candidate 3B (SELECTED STATE) -->
+<div class="candidate-card is-selected cursor-pointer rounded-xl bg-selection-yellow shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between p-space-md" onclick="selectCandidate(this, 'academic', 'Nana Yaa Darko', 'JHS 3A')">
+<div>
+<div class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-card mb-space-sm shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Nana Yaa Darko, an academic prefect candidate with bright attentive eyes and school tie, seated near bright window light in a study hall, scholarly and welcoming aura." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFX8s8xl7dA5i8180FlO40UQgXTeUKhuayb_-V3j6TeCsTKmjQ4hvP0-VglmvaR9X6Vxma5e5satZZlY81Ys7Yv4qeaOS8MiXfjt0JtsKxX_exCDaINXBovNuvsCGkeIIDembJNklZ1W43ZA2EgJcFJH_XsrNWFfySv9nCCTmhSV_JL4_jt1rZ6ttz1MFBYvg-awdtFgYCuc0Q7usN3soGDTav8j6vrdopA3IjgKvcSxBrEe6ZBdoI">
+<span class="absolute top-2 left-2 px-2 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Class JHS 3A</span>
+<span class="absolute top-2 right-2 px-2 py-1 rounded bg-secondary-container text-text-primary font-label-sm text-label-sm font-bold shadow-sm">Lead Choice</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-title-lg text-title-lg text-text-primary font-bold">Nana Yaa Darko</h3>
+<p class="font-body-sm text-body-sm text-text-primary font-medium italic line-clamp-2">“Peer-led Tutoring and Innovation Labs”</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-primary font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">done_all</span> Selected Choice
+            </span>
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+<!-- Voter Security Advisory Card -->
+<div class="rounded-xl bg-surface-container-high p-space-lg flex flex-col justify-between shadow-sm">
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined text-xl">encrypted</span>
+<span class="font-title-lg text-title-lg">Single-Vote Guarantee</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">The Election Room secure ledger records a SHA-256 hash of your student ID upon transmission, ensuring zero ballot stuffing and complete ballot secrecy.</p>
+</div>
+<div class="pt-space-md flex items-center gap-2 text-xs text-text-secondary font-mono">
+<span class="w-2 h-2 rounded-full bg-status-open"></span>
+            Node connection: 200 OK · Latency: 24ms
+          </div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Sticky Ballot Submission Bar -->
+<aside class="fixed bottom-0 left-0 w-full z-40 bg-surface-card/95 backdrop-blur-md shadow-[0_-4px_24px_rgba(17,55,90,0.12)]">
+<div class="max-w-6xl mx-auto px-margin py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full sm:w-auto">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+<path class="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-secondary-container transition-all duration-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="absolute font-label-lg text-label-lg font-bold text-primary">3/3</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-lg text-title-lg text-primary">All Positions Selected</span>
+<span class="inline-flex px-2 py-0.5 rounded text-status-open bg-status-open-surface font-label-sm text-label-sm font-bold">Ready</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary">Ballots cannot be edited once committed to the school ledger.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md w-full sm:w-auto justify-end">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3 rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-all duration-200 shadow-md active:scale-98" onclick="openReviewModal()" type="button">
+<span class="">Review My Choices</span>
+<span class="material-symbols-outlined text-election-gold text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Step C Confirmation Modal (Hidden by default, opened on click) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300" id="confirmation-modal">
+<div class="bg-surface-card rounded-2xl max-w-xl w-full p-space-xl shadow-2xl space-y-space-lg transform scale-95 transition-transform duration-300" id="modal-container">
+<!-- Modal Header -->
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="inline-flex items-center gap-1.5 text-secondary-container font-bold font-label-sm text-label-sm uppercase">
+<span class="material-symbols-outlined text-sm">verified</span>
+            Final Verification Step
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Confirm Your Choices</h2>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Voting as <strong class="text-primary">Kwame Mensah (WJH-2026-0842)</strong>. Once finalized, your choices are irreversible.
+          </p>
+</div>
+<button class="text-text-secondary hover:text-text-primary p-1 rounded-full bg-surface-container-low" onclick="closeReviewModal()" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Choices Review Table -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-inner">
+<div class="px-space-md py- space-sm bg-surface-container-high text-xs font-label-sm uppercase text-text-secondary tracking-wider grid grid-cols-12 py-2">
+<span class="col-span-6">Position Title</span>
+<span class="col-span-6">Selected Nominee</span>
+</div>
+<!-- Row 1 -->
+<div class="px-space-md py-space-sm grid grid-cols-12 items-center bg-surface-card border-b border-surface-container-high/60">
+<div class="col-span-6">
+<span class="font-title-lg text-title-lg text-primary block">Senior Prefect (Boys)</span>
+<span class="text-xs text-text-secondary font-mono">ID: CAND-BOYS-02</span>
+</div>
+<div class="col-span-6 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait thumbnail of nominee Samuel Addo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVkCaHE-xDNMT59oqEy3N5JgU2R5977KX6zQxj1CLzSugcOqBD6c30Z0wFCAUB3TRRMaKRGnT9536MHMKFLImqLAa9vh26EAgu-17COUqWnqrzuxI3bvpQ2Le0j8Z-mbvyUdr0DLfLegbGfcipZPrEEz9f__lI8KjWjkDPOMPwb2F7mcV2iSgpECujZgl-JksVL5flzeVtBPmpKPaP12a1iDSQ5NnA2SPAJtM-PH5_5lFy8j1bFe5v">
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-text-primary block leading-tight">Samuel Addo</span>
+<span class="text-xs text-secondary-container font-semibold">JHS 3B</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="px-space-md py-space-sm grid grid-cols-12 items-center bg-surface-card border-b border-surface-container-high/60">
+<div class="col-span-6">
+<span class="font-title-lg text-title-lg text-primary block">Senior Prefect (Girls)</span>
+<span class="text-xs text-text-secondary font-mono">ID: CAND-GIRLS-01</span>
+</div>
+<div class="col-span-6 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait thumbnail of nominee Abigail Asante" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgrP7XMxB7rtRwk9E7RCR2M78iJ4oYbhUdWeYSMkgU5GZ8WrWylu7Q3NIBgFSMQZicYrVS-KuouOOcg1FroCeTnv_TYAzwXErwH9UgoGAwM8bfVS878k0-GB706jVaSM8nuGqbRHmsH5x05UWlCJoc5R1lu6pDv7gaOf2Vjt4jJqeT1Z7ODfKTWqCh09GxRUs7Gl6ZpfRHs3TPu6f4cl2MoPFQLMMH9dncwrpYKz9jlXYP4Lvck9u7">
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-text-primary block leading-tight">Abigail Asante</span>
+<span class="text-xs text-secondary-container font-semibold">JHS 3A</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="px-space-md py-space-sm grid grid-cols-12 items-center bg-surface-card">
+<div class="col-span-6">
+<span class="font-title-lg text-title-lg text-primary block">Academic Prefect</span>
+<span class="text-xs text-text-secondary font-mono">ID: CAND-ACAD-02</span>
+</div>
+<div class="col-span-6 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait thumbnail of nominee Nana Yaa Darko" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4kJvF6T1unslniLRhnLYdWne9xVXSK-KbIIiE-l3HZ7Eyp3cV5rDsCgMwGnTKUxgTtqNbejvZ6lGc8g0D9_D6DEzC3Gn0hEliENikxUf60LTMNUj5NWIau4DCHWXspRk0OZUyqBj3qXjiO0pVBH855F3_1SBxxI_0JzXYiCWG1ozxUE0ls4tAdTynxaseH1Wky_lEh4I3DKwrvSyJVA0m08QuPb2Lk3X319yeVr-UFtudVBtKTCIf">
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-text-primary block leading-tight">Nana Yaa Darko</span>
+<span class="text-xs text-secondary-container font-semibold">JHS 3A</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Legal & Security Affirmation -->
+<div class="p-space-sm bg-status-open-surface rounded-lg flex items-start gap-2 text-status-open">
+<span class="material-symbols-outlined text-base mt-0.5">verified_user</span>
+<span class="font-body-sm text-body-sm">
+          By clicking “Submit Official Vote”, you solemnly certify you are Kwame Mensah and agree your ballot token will be cryptographically locked.
+        </span>
+</div>
+<!-- Modal Actions -->
+<div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-space-sm pt-space-xs">
+<button class="w-full sm:w-auto px-space-md py-2.5 rounded-lg text-primary bg-surface-container hover:bg-surface-container-high font-label-lg text-label-lg transition-colors" onclick="closeReviewModal()" type="button">
+          Change Vote Choices
+        </button>
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-lg py-2.5 rounded-lg bg-secondary-container text-text-primary font-bold font-label-lg text-label-lg hover:bg-secondary-fixed transition-colors shadow-md" id="submit-vote-btn" onclick="triggerVoteSubmission()" type="button">
+<span class="material-symbols-outlined text-base">how_to_reg</span>
+<span class="">Submit Official Vote</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Step D: Success Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" id="success-modal">
+<div class="bg-surface-card rounded-2xl max-w-md w-full p-space-xl text-center space-y-space-md shadow-2xl">
+<div class="w-20 h-20 rounded-full bg-status-open-surface text-status-open mx-auto flex items-center justify-center">
+<span class="material-symbols-outlined text-5xl">check_circle</span>
+</div>
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-status-open font-bold uppercase tracking-wider">Ballot Hash Encrypted</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Vote Cast Successfully!</h2>
+<p class="font-body-md text-body-md text-text-secondary">Thank you, Kwame Mensah. Your votes have been sealed in the official Election Room Electoral Register.</p>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg text-left text-xs font-mono text-text-secondary space-y-1">
+<div class="">Receipt: #ELEC-ROOM-2026-981240</div>
+<div class="">Voter: Kwame Mensah (WJH-2026-0842)</div>
+<div class="">Timestamp: May 14, 2026 10:48:19 GMT</div>
+</div>
+<div class="pt-space-sm flex flex-col gap-2">
+<a class="w-full py-3 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-semibold hover:bg-primary-container transition-colors shadow-md" href="#">
+          Done • Sign Out Session
+        </a>
+<a class="w-full py-2.5 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-medium hover:bg-surface-container transition-colors" href="#">
+          View Election Turnout Info
+        </a>
+</div>
+</div>
+</div>
+<!-- Micro-interaction logic -->
+<script>
+    function selectCandidate(cardElement, category, name, candidateClass) {
+      const section = document.querySelector(`[data-category="${category}"]`);
+      if (!section) return;
+
+      // Deselect existing in this category
+      const cards = section.querySelectorAll('.candidate-card');
+      cards.forEach(c => {
+        c.classList.remove('is-selected', 'bg-selection-yellow', 'shadow-md');
+        c.classList.add('bg-surface-container-low');
+        
+        // Reset subheader typography/styles
+        const titleEl = c.querySelector('h3');
+        if (titleEl) titleEl.classList.remove('font-bold');
+        
+        const badge = c.querySelector('.is-selected-badge');
+        if (badge) badge.remove();
+
+        const checkBtn = c.querySelector('.rounded-full:last-child');
+        if (checkBtn) {
+          checkBtn.className = "w-6 h-6 rounded-full bg-surface-card flex items-center justify-center text-transparent";
+        }
+        
+        const statusText = c.querySelector('.candidate-card > div:last-child > span:first-child');
+        if (statusText) {
+          statusText.className = "font-label-sm text-label-sm text-text-secondary font-medium";
+          statusText.textContent = "Click to select";
+        }
+      });
+
+      // Select clicked card
+      cardElement.classList.remove('bg-surface-container-low');
+      cardElement.classList.add('is-selected', 'bg-selection-yellow', 'shadow-md');
+
+      const titleEl = cardElement.querySelector('h3');
+      if (titleEl) titleEl.classList.add('font-bold');
+
+      const checkBtn = cardElement.querySelector('.rounded-full:last-child');
+      if (checkBtn) {
+        checkBtn.className = "w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm";
+      }
+
+      const statusText = cardElement.querySelector('.candidate-card > div:last-child > span:first-child');
+      if (statusText) {
+        statusText.className = "font-label-sm text-label-sm text-text-primary font-bold uppercase tracking-wider flex items-center gap-1";
+        statusText.innerHTML = '<span class="material-symbols-outlined text-sm text-primary">done_all</span> Selected Choice';
+      }
+    }
+
+    function openReviewModal() {
+      const modal = document.getElementById('confirmation-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      container.classList.remove('scale-95');
+      container.classList.add('scale-100');
+    }
+
+    function closeReviewModal() {
+      const modal = document.getElementById('confirmation-modal');
+      const container = document.getElementById('modal-container');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      container.classList.remove('scale-100');
+      container.classList.add('scale-95');
+    }
+
+    function triggerVoteSubmission() {
+      closeReviewModal();
+      const success = document.getElementById('success-modal');
+      setTimeout(() => {
+        success.classList.remove('opacity-0', 'pointer-events-none');
+      }, 300);
+    }
+
+    // Live countdown timer simulation
+    let seconds = 14 * 60 + 22;
+    setInterval(() => {
+      if (seconds > 0) {
+        seconds--;
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        const countdownEl = document.getElementById('session-countdown');
+        if (countdownEl) {
+          countdownEl.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+      }
+    }, 1000);
+  </script>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="h-0.5 bg-election-gold/40 w-full"></div><div class="max-w-7xl mx-auto px-margin py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start text-center md:text-left gap-1"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">verified_user</span><span class="font-label-lg text-label-lg text-primary">Verified Institutional Democracy Infrastructure</span></div><p class="font-body-sm text-body-sm text-text-secondary max-w-md">All ballots cast are cryptographically sealed, audited, and strictly confidential under Election Room Student Government By-Laws.</p></div><div class="flex items-center gap-space-lg text-center md:text-right"><div class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">End-to-End Certified System</span><p class="font-body-sm text-body-sm text-outline">© 2024 Election Room Electoral Commission. All rights reserved.</p></div></div></div></footer>
+
+
+
+</body></html>

@@ -1,0 +1,10 @@
+<form method="post"
+      action="{% url 'voting:toggle_polls' %}"
+      hx-post="{% url 'voting:toggle_polls' %}"
+      hx-target="#pause-toggle-wrap" hx-swap="outerHTML">
+    {% csrf_token %}
+    <button type="submit" class="h-9 px-3 rounded-lg {% if election and election.is_open %}bg-status-closed-surface text-status-closed{% else %}bg-status-open-surface text-status-open{% endif %} font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[18px]">{% if election and election.is_open %}pause_circle{% else %}play_circle{% endif %}</span>
+        <span>{% if election and election.is_open %}Pause Polls{% else %}Resume Polls{% endif %}</span>
+    </button>
+</form>
