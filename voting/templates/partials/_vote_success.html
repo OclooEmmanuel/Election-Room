@@ -1,0 +1,11 @@
+<div class="modal-overlay" id="successModal">
+    <div class="modal success">
+        <div class="success-check">&#10004;</div>
+        <h1>Vote Submitted Successfully</h1>
+        <p>Thank you! Your vote has been recorded and cannot be changed.</p>
+        <div class="modal-actions">
+            <a href="{% url 'voting:results' %}" class="btn-secondary">View results</a>
+            <a href="{% url 'voting:vote' %}" class="btn-primary">Done</a>
+        </div>
+    </div>
+</div>

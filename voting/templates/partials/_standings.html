@@ -1,0 +1,33 @@
+<section class="panel" id="standings-root"
+         hx-get="{% url 'voting:dashboard_standings' %}"
+         hx-trigger="every 5s" hx-swap="outerHTML">
+    <div class="panel-head">
+        <h2>Current standings</h2>
+        <span class="count-chip">{{ standings|length }} positions</span>
+    </div>
+    {% for item in standings %}
+    <div class="panel-head sub-head">
+        <h2>{{ item.position.name }} <span style="font-weight:600; color:var(--db-muted); font-size:0.85rem;">· {{ item.total }} votes</span></h2>
+    </div>
+    <div class="standing-rows">
+        {% for entry in item.candidates %}
+        <div class="standing-row{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
+            <span class="standing-name{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
+                {% if entry.candidate.photo %}
+                <img class="mini-photo" src="{{ entry.candidate.photo.url }}" alt="">
+                {% endif %}
+                {{ entry.candidate.student.full_name }}
+            </span>
+            <div class="bar">
+                <div class="bar-fill" style="width: {% widthratio entry.count item.total 100 %}%"></div>
+            </div>
+            <span class="standing-count">{{ entry.count }}</span>
+        </div>
+        {% empty %}
+        <p class="hint">No candidates for this position.</p>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <p class="hint">No positions created yet.</p>
+    {% endfor %}
+</section>

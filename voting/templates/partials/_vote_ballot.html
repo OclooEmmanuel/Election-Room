@@ -1,0 +1,31 @@
+<div class="vote-ballot">
+    <h1>Hi, {{ student.full_name }}</h1>
+    <p>Select <strong>one</strong> candidate for each position. You will review your choices before submitting.</p>
+
+    {% if error %}
+        <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        <div class="error-box">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <form method="post" novalidate
+          hx-post="{% url 'voting:vote' %}"
+          hx-target="#step-root"
+          hx-swap="innerHTML">
+        {% csrf_token %}
+        {% for field in form %}
+            <fieldset class="position-card">
+                <legend>{{ field.label }}</legend>
+                {% for error in field.errors %}
+                    <div class="error-text">{{ error }}</div>
+                {% endfor %}
+                <div class="candidate-grid">
+                    {{ field }}
+                </div>
+            </fieldset>
+        {% endfor %}
+        <button type="submit" class="btn-primary">Review My Choices</button>
+    </form>
+</div>

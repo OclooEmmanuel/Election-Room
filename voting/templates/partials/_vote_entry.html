@@ -1,0 +1,23 @@
+<div class="vote-entry">
+    <h1>Cast Your Vote</h1>
+    <p>Enter your student ID to begin voting.</p>
+
+    {% if error %}
+        <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" novalidate
+          hx-post="{% url 'voting:vote' %}"
+          hx-target="#step-root"
+          hx-swap="innerHTML">
+        {% csrf_token %}
+        <div class="form-field">
+            {{ form.student_id.label_tag }}
+            {{ form.student_id }}
+            {% for error in form.student_id.errors %}
+                <div class="error-text">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn-primary">Continue</button>
+    </form>
+</div>

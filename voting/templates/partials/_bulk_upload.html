@@ -1,0 +1,43 @@
+<section class="panel" id="bulk-upload-panel">
+    <div class="panel-head">
+        <h2>Bulk upload students</h2>
+        <span class="count-chip orange">CSV</span>
+    </div>
+    <p class="hint">Columns <code>student_id, full_name, gender, class_level</code>.
+        Gender (<code>M</code>/<code>F</code>) and class level are optional;
+        a header row is optional; existing student IDs are skipped.</p>
+
+    <form method="post" enctype="multipart/form-data"
+          action="{% url 'voting:dashboard' %}"
+          hx-post="{% url 'voting:dashboard' %}"
+          hx-target="#bulk-upload-panel"
+          hx-swap="outerHTML">
+        {% csrf_token %}
+        <div class="form-field file-field">
+            <label for="id_csv_file">Students CSV</label>
+            <input type="file" name="csv_file" id="id_csv_file" accept=".csv" required>
+            {% for error in bulk_form.csv_file.errors %}
+                <p class="error-text">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <button class="btn btn-navy" type="submit">Upload students</button>
+    </form>
+
+    {% if import_result %}
+    <p class="import-summary">
+        Import complete: {{ import_result.created }} added,
+        {{ import_result.skipped }} skipped,
+        {{ import_result.errors }} errors.
+    </p>
+    {% if import_result.error_details or import_result.duplicates %}
+    <ul class="import-details">
+        {% for row, reason in import_result.error_details %}
+        <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
+        {% endfor %}
+        {% for row, reason in import_result.duplicates %}
+        <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
+</section>

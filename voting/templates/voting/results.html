@@ -7,56 +7,5 @@
 {% block content %}
 <h1>Election Results</h1>
 
-{% if locked %}
-<div class="success-box">
-    <span class="status closed">Results are not available yet</span>
-    <p>Voting is currently in progress. The results will be published here as soon as the election closes.</p>
-    <p>
-        <a class="btn-primary" href="{% url 'voting:vote' %}">Go to voting</a>
-    </p>
-</div>
-{% else %}
-{% for group in results %}
-    <section class="results-group">
-        <h2>{{ group.position.name|upper }}</h2>
-        <div class="table-scroll">
-            <table class="results-table">
-            <thead>
-                <tr><th>Candidate</th><th>Votes</th></tr>
-            </thead>
-            <tbody>
-                {% for item in group.candidates %}
-                    <tr>
-                        <td>
-                            {% if item.candidate.photo %}
-                            <img class="candidate-photo" src="{{ item.candidate.photo.url }}" alt="{{ item.candidate.student.full_name }}">
-                            {% endif %}
-                            {{ item.candidate.student.full_name }}
-                        </td>
-                        <td class="count">{{ item.count }}</td>
-                    </tr>
-                {% empty %}
-                    <tr><td colspan="2">No candidates for this position.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        </div>
-        <p class="total">Total votes: {{ group.total }}</p>
-        {% if group.winner %}
-            <p class="winner">
-                Winner:
-                {% if group.tied %}
-                    <strong>{{ group.winner.candidate.student.full_name }}</strong> tied with
-                    {% for item in group.tied %}<strong>{{ item.candidate.student.full_name }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}
-                    ({{ group.winner.count }} votes each)
-                {% elif group.winner.count > 0 %}
-                    <strong>{{ group.winner.candidate.student.full_name }}</strong> ({{ group.winner.count }} votes)
-                {% else %}
-                    No votes yet.
-                {% endif %}
-            </p>
-        {% endif %}
-    </section>
-{% endfor %}
-{% endif %}
+{% include "partials/_results_groups.html" %}
 {% endblock %}

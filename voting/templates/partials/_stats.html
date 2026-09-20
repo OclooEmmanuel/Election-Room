@@ -1,0 +1,36 @@
+<div class="stats-grid" id="stats-root"
+     hx-get="{% url 'voting:dashboard_stats' %}"
+     hx-trigger="every 5s" hx-swap="outerHTML">
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-value">{{ eligible }}</span>
+            <span class="stat-icon">▤</span>
+        </div>
+        <span class="stat-label">Eligible voters</span>
+        <div class="stat-bar"><div style="width: 100%"></div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-value">{{ voters }}</span>
+            <span class="stat-icon">✓</span>
+        </div>
+        <span class="stat-label">Students who voted</span>
+        <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio voters eligible 100 %}{% else %}0{% endif %}%"></div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-value">{{ total_votes }}</span>
+            <span class="stat-icon">●</span>
+        </div>
+        <span class="stat-label">Total votes cast</span>
+        <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio total_votes eligible 100 %}{% else %}0{% endif %}%"></div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-value">{{ turnout }}%</span>
+            <span class="stat-icon">%</span>
+        </div>
+        <span class="stat-label">Voter turnout</span>
+        <div class="stat-bar"><div style="width: {{ turnout }}%"></div></div>
+    </div>
+</div>

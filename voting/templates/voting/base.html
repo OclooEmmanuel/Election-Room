@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body class="{% block bodyclass %}{% endblock %}">
+<body class="{% block bodyclass %}{% endblock %}" hx-boost="true">
     {% block header %}{% include "partials/_navbar.html" %}{% endblock %}
 
     <main class="container">
@@ -27,5 +27,8 @@
     </main>
 
     {% block footer %}{% include "partials/_footer.html" %}{% endblock %}
+
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
 </body>
 </html>

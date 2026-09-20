@@ -1,0 +1,42 @@
+<div class="modal-overlay" id="confirmModal">
+    <div class="modal">
+        <h1>Confirm your choices</h1>
+        <p>Voting as <strong>{{ student.full_name }}</strong> ({{ student.student_id }}). Once confirmed, your vote cannot be changed.</p>
+
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
+
+        <div class="table-scroll">
+        <table class="selections">
+            <thead>
+                <tr><th>Position</th><th>Your Choice</th></tr>
+            </thead>
+            <tbody>
+                {% for item in selections %}
+                <tr>
+                    <td>{{ item.position.name }}</td>
+                    <td>
+                        {% if item.candidate.photo %}
+                        <img class="choice-photo-mini" src="{{ item.candidate.photo.url }}" alt="">
+                        {% endif %}
+                        {{ item.candidate.student.full_name }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+
+        <div class="modal-actions">
+            <form method="post" action="{% url 'voting:vote_confirm' %}"
+                  hx-post="{% url 'voting:vote_confirm' %}"
+                  hx-target="#vote-modal-root"
+                  hx-swap="innerHTML">
+                {% csrf_token %}
+                <button type="button" class="btn-secondary" data-close-modal>Edit choices</button>
+                <button type="submit" class="btn-primary">Submit vote</button>
+            </form>
+        </div>
+    </div>
+</div>

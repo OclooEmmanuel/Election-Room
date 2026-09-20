@@ -17,9 +17,9 @@
         <nav class="sidebar-nav">
             <a class="active" href="{% url 'voting:dashboard' %}"><span class="icon">▨</span> Dashboard</a>
             <a href="{% url 'voting:results' %}"><span class="icon">▥</span> Live results</a>
-            <a href="/admin/"><span class="icon">⚙</span> Admin panel</a>
+            <a href="/admin/" hx-boost="false"><span class="icon">⚙</span> Admin panel</a>
             <a href="{% url 'voting:vote' %}"><span class="icon">✎</span> Public voting</a>
-            <a href="/admin/logout/"><span class="icon"></span> Sign out</a>
+            <a href="/admin/logout/" hx-boost="false"><span class="icon"></span> Sign out</a>
         </nav>
         <div class="sidebar-card">
             <div class="who">{{ request.user.get_full_name|default:request.user.username }}</div>
@@ -37,119 +37,18 @@
                 </p>
             </div>
             <div class="topbar-actions">
-                <a class="btn btn-ghost" href="/admin/">Manage in admin</a>
+                <a class="btn btn-ghost" href="/admin/" hx-boost="false">Manage in admin</a>
                 <a class="btn btn-accent" href="{% url 'voting:results' %}">View live results</a>
             </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-value">{{ eligible }}</span>
-                    <span class="stat-icon">▤</span>
-                </div>
-                <span class="stat-label">Eligible voters</span>
-                <div class="stat-bar"><div style="width: 100%"></div></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-value">{{ voters }}</span>
-                    <span class="stat-icon">✓</span>
-                </div>
-                <span class="stat-label">Students who voted</span>
-                <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio voters eligible 100 %}{% else %}0{% endif %}%"></div></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-value">{{ total_votes }}</span>
-                    <span class="stat-icon">●</span>
-                </div>
-                <span class="stat-label">Total votes cast</span>
-                <div class="stat-bar"><div style="width: {% if eligible %}{% widthratio total_votes eligible 100 %}{% else %}0{% endif %}%"></div></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-value">{{ turnout }}%</span>
-                    <span class="stat-icon">%</span>
-                </div>
-                <span class="stat-label">Voter turnout</span>
-                <div class="stat-bar"><div style="width: {{ turnout }}%"></div></div>
-            </div>
-        </div>
+        {% include "partials/_stats.html" %}
 
         {% if request.user.is_superuser %}
-        <section class="panel">
-            <div class="panel-head">
-                <h2>Bulk upload students</h2>
-                <span class="count-chip orange">CSV</span>
-            </div>
-            <p class="hint">Columns <code>student_id, full_name, gender, class_level</code>.
-                Gender (<code>M</code>/<code>F</code>) and class level are optional;
-                a header row is optional; existing student IDs are skipped.</p>
-
-            <form method="post" enctype="multipart/form-data" action="{% url 'voting:dashboard' %}">
-                {% csrf_token %}
-                <div class="form-field file-field">
-                    <label for="id_csv_file">Students CSV</label>
-                    <input type="file" name="csv_file" id="id_csv_file" accept=".csv" required>
-                    {% for error in bulk_form.csv_file.errors %}
-                        <p class="error-text">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                <button class="btn btn-navy" type="submit">Upload students</button>
-            </form>
-
-            {% if import_result %}
-            <p class="import-summary">
-                Import complete: {{ import_result.created }} added,
-                {{ import_result.skipped }} skipped,
-                {{ import_result.errors }} errors.
-            </p>
-            {% if import_result.error_details or import_result.duplicates %}
-            <ul class="import-details">
-                {% for row, reason in import_result.error_details %}
-                <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
-                {% endfor %}
-                {% for row, reason in import_result.duplicates %}
-                <li><strong>{{ row|join:", " }}</strong> — {{ reason }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endif %}
-        </section>
+        {% include "partials/_bulk_upload.html" %}
         {% endif %}
 
-        <section class="panel">
-            <div class="panel-head">
-                <h2>Current standings</h2>
-                <span class="count-chip">{{ standings|length }} positions</span>
-            </div>
-            {% for item in standings %}
-            <div class="panel-head sub-head">
-                <h2>{{ item.position.name }} <span style="font-weight:600; color:var(--db-muted); font-size:0.85rem;">· {{ item.total }} votes</span></h2>
-            </div>
-            <div class="standing-rows">
-                {% for entry in item.candidates %}
-                <div class="standing-row{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
-                    <span class="standing-name{% if item.leader and entry.candidate.pk == item.leader.candidate.pk %} leader{% endif %}">
-                        {% if entry.candidate.photo %}
-                        <img class="mini-photo" src="{{ entry.candidate.photo.url }}" alt="">
-                        {% endif %}
-                        {{ entry.candidate.student.full_name }}
-                    </span>
-                    <div class="bar">
-                        <div class="bar-fill" style="width: {% widthratio entry.count item.total 100 %}%"></div>
-                    </div>
-                    <span class="standing-count">{{ entry.count }}</span>
-                </div>
-                {% empty %}
-                <p class="hint">No candidates for this position.</p>
-                {% endfor %}
-            </div>
-            {% empty %}
-            <p class="hint">No positions created yet.</p>
-            {% endfor %}
-        </section>
+        {% include "partials/_standings.html" %}
 
         <section class="panel">
             <div class="panel-head">

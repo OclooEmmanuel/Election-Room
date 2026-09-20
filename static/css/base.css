@@ -915,3 +915,27 @@ input[type="text"]:focus {
         flex-wrap: wrap;
     }
 }
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+.htmx-request .htmx-indicator,
+.htmx-indicator.htmx-request {
+    opacity: 1;
+}
+
+#step-root {
+    animation: step-in 0.18s ease-out;
+}
+
+@keyframes step-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
