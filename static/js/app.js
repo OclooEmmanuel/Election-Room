@@ -16,6 +16,21 @@
 
     document.addEventListener("htmx:afterswap", syncBodyClass);
 
+    function suppressRepeatIndicators() {
+        document.querySelectorAll("[data-load-once]").forEach(function (el) {
+            el.classList.add("indicator-off");
+        });
+    }
+
+    document.addEventListener("htmx:afterSwap", suppressRepeatIndicators);
+
+    document.addEventListener("click", function (event) {
+        var el = event.target.closest ? event.target.closest("[data-load-spin]") : null;
+        if (!el || el.classList.contains("is-loading")) return;
+        el.classList.add("is-loading");
+        if (el.tagName === "BUTTON") el.disabled = true;
+    });
+
     function updateBallotCount() {
         var form = document.getElementById("vote-form");
         if (!form) return;

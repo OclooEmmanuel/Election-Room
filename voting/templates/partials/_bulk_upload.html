@@ -8,7 +8,8 @@
               action="{% url 'voting:dashboard' %}"
               hx-post="{% url 'voting:dashboard' %}"
               hx-target="#bulk-upload-panel"
-              hx-swap="outerHTML">
+              hx-swap="outerHTML"
+              hx-disabled-elt="find button">
             {% csrf_token %}
             <label class="rounded border border-dashed border-border-strong p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" for="id_csv_file">
                 <span class="material-symbols-outlined text-xl text-text-secondary mb-1">upload_file</span>
@@ -21,7 +22,10 @@
             </label>
             <div class="flex items-center justify-between text-xs">
                 <a class="text-text-secondary hover:text-primary transition-colors" href="{% url 'voting:export_voter_template' %}">Download Template</a>
-                <button class="px-3 py-1.5 rounded bg-primary text-on-primary font-medium hover:bg-primary-container transition-all" type="submit">Upload Register</button>
+                <button class="px-3 py-1.5 rounded bg-primary text-on-primary font-medium hover:bg-primary-container transition-all inline-flex items-center gap-1.5" type="submit">
+                    <span class="material-symbols-outlined htmx-indicator spin text-sm">progress_activity</span>
+                    Upload Register
+                </button>
             </div>
         </form>
         {% if import_result %}

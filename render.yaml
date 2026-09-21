@@ -18,14 +18,14 @@ services:
       - key: DJANGO_DEBUG
         value: 'False'
 
-  - type: cron
-    name: election-room-keepalive
-    runtime: python
-    schedule: "*/10 * * * *"
-    buildCommand: ./build.sh
-    startCommand: python manage.py keepalive
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.12.12
-      - key: DJANGO_SETTINGS_MODULE
-        value: prefect_voting.settings
+  # - type: cron
+  #   name: election-room-keepalive
+  #   runtime: python
+  #   schedule: "*/10 * * * *"
+  #   buildCommand: ./build.sh
+  #   startCommand: python manage.py keepalive
+  #   envVars:
+  #     - key: PYTHON_VERSION
+  #       value: 3.12.12
+  #     - key: DJANGO_SETTINGS_MODULE
+  #       value: prefect_voting.settings

@@ -1,7 +1,8 @@
 {% load num_format %}
-<div class="lg:col-span-7 flex flex-col gap-4" id="standings"
+<div class="lg:col-span-7 flex flex-col gap-4" id="standings" style="position:relative" data-load-once
      hx-get="{% url 'voting:dashboard_standings' %}"
      hx-trigger="every 5s" hx-swap="outerHTML">
+    <div class="loading-bar htmx-indicator" aria-hidden="true"></div>
     <div class="flex items-center justify-between pb-1 border-b border-border-subtle">
         <div class="flex items-center gap-2">
             <h2 class="font-title-lg text-base font-bold text-primary">Race Standings</h2>

@@ -115,6 +115,6 @@ class VoteAdmin(admin.ModelAdmin):
     list_per_page = 50
 
 
-admin.site.site_header = "JHS Prefect Voting Admin"
-admin.site.site_title = "JHS Prefect Voting"
+admin.site.site_header = "Election Room Admin"
+admin.site.site_title = "Election Room"
 admin.site.index_title = "Election Management"

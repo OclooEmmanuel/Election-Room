@@ -32,10 +32,17 @@
             <form method="post" action="{% url 'voting:vote_confirm' %}"
                   hx-post="{% url 'voting:vote_confirm' %}"
                   hx-target="#vote-modal-root"
-                  hx-swap="innerHTML">
+                  hx-swap="innerHTML"
+                  hx-disabled-elt="find button">
                 {% csrf_token %}
-                <button type="button" class="btn-secondary" data-close-modal>Edit choices</button>
-                <button type="submit" class="btn-primary">Submit vote</button>
+                <button type="button" class="btn-secondary" data-close-modal data-load-spin>
+                    <span class="ms nav-spin spin" style="margin-right:6px;vertical-align:-0.18em">progress_activity</span>
+                    Edit choices
+                </button>
+                <button type="submit" class="btn-primary">
+                    <span class="ms htmx-indicator spin" style="margin-right:6px;vertical-align:-0.18em">progress_activity</span>
+                    Submit vote
+                </button>
             </form>
         </div>
     </div>

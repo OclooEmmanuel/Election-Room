@@ -1,6 +1,7 @@
-<div class="home-stats" id="home-stats"
+<div class="home-stats" id="home-stats" style="position:relative" data-load-once
      hx-get="{% url 'voting:home_stats' %}"
      hx-trigger="every 30s" hx-swap="outerHTML">
+    <div class="loading-bar htmx-indicator" aria-hidden="true"></div>
     <div class="stat-chip">
         <span class="stat-chip-icon"><span class="ms">group</span></span>
         <span>

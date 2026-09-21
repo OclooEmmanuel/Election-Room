@@ -1,6 +1,7 @@
-<div id="results-root"
+<div id="results-root" style="position:relative" data-load-once
      hx-get="{% url 'voting:results_partial' %}"
      hx-trigger="every 10s" hx-swap="outerHTML">
+    <div class="loading-bar htmx-indicator" aria-hidden="true"></div>
     {% if locked %}
     <div class="success-box">
         <h2>Results are not available yet</h2>

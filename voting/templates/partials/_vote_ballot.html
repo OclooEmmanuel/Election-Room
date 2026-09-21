@@ -31,7 +31,8 @@
     <form id="vote-form" method="post" novalidate
           hx-post="{% url 'voting:vote' %}"
           hx-target="#step-root"
-          hx-swap="innerHTML">
+          hx-swap="innerHTML"
+          hx-disabled-elt="find button">
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="position-card">
@@ -55,7 +56,10 @@
                 <span class="sel-chip" data-sel-count>0 / 0 Selected</span>
                 <span>Your choices are locked once you confirm in Step 3.</span>
             </span>
-            <button type="submit" class="btn-primary">Review My Choices <span class="ms" style="font-size:1.1em;margin-left:4px">arrow_forward</span></button>
+            <button type="submit" class="btn-primary">
+                <span class="ms htmx-indicator spin" style="margin-right:6px;vertical-align:-0.18em">progress_activity</span>
+                Review My Choices <span class="ms" style="font-size:1.1em;margin-left:4px">arrow_forward</span>
+            </button>
         </div>
     </form>
 </div>

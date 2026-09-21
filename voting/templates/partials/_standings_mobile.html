@@ -1,8 +1,9 @@
 {% load num_format %}
-<div class="flex flex-col gap-2" id="standings-mobile"
+<div class="flex flex-col gap-2" id="standings-mobile" style="position:relative" data-load-once
      hx-get="{% url 'voting:dashboard_standings' %}"
      hx-trigger="every 5s" hx-swap="outerHTML"
      hx-headers='{"X-Mobile": "1"}'>
+    <div class="loading-bar htmx-indicator" aria-hidden="true"></div>
     {% for item in standings %}
     <div class="bg-surface-card rounded-xl p-4 shadow-sm flex flex-col gap-3">
         <div class="flex items-center justify-between">

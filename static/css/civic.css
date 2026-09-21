@@ -1040,3 +1040,62 @@ input[type="password"]:focus {
         position: static;
     }
 }
+
+/* ---------- Loading indicators ---------- */
+.spin {
+    display: inline-block;
+    animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 9999px;
+    background: var(--c-primary, #11375a);
+    animation: pulse 1s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+button[type="submit"]:disabled {
+    cursor: progress;
+    opacity: 0.75;
+}
+
+form.htmx-request button[type="submit"] {
+    cursor: progress;
+}
+
+.indicator-off.htmx-request .htmx-indicator {
+    opacity: 0;
+}
+
+.nav-spin {
+    display: none;
+}
+
+.is-loading {
+    cursor: progress;
+}
+
+.is-loading .nav-spin {
+    display: inline-block;
+}
+
+button.is-loading {
+    opacity: 0.75;
+}
+
+a.is-loading {
+    pointer-events: none;
+    opacity: 0.75;
+}

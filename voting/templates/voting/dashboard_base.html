@@ -11,7 +11,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Open+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-    <style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+    <style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+    .htmx-indicator{opacity:0;transition:opacity 200ms ease-in;}
+    .htmx-request .htmx-indicator,.htmx-indicator.htmx-request{opacity:1;}
+    .spin{display:inline-block;animation:spin 800ms linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .loading-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:9999px;background:#11375a;animation:pulse 1s ease-in-out infinite;pointer-events:none;z-index:1;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+    button[type="submit"]:disabled{cursor:progress;opacity:0.75;}
+    form.htmx-request button[type="submit"]{cursor:progress;}
+    .indicator-off.htmx-request .htmx-indicator{opacity:0;}
+    .nav-spin{display:none;}
+    .is-loading{cursor:progress;}
+    .is-loading .nav-spin{display:inline-block;}
+    button.is-loading{opacity:0.75;}
+    a.is-loading{pointer-events:none;opacity:0.75;}</style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">tailwind.config = {
     darkMode: "class",

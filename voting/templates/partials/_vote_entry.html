@@ -9,7 +9,8 @@
     <form method="post" novalidate
           hx-post="{% url 'voting:vote' %}"
           hx-target="#step-root"
-          hx-swap="innerHTML">
+          hx-swap="innerHTML"
+          hx-disabled-elt="find button">
         {% csrf_token %}
         <div class="form-field">
             {{ form.student_id.label_tag }}
@@ -18,6 +19,9 @@
                 <div class="error-text">{{ error }}</div>
             {% endfor %}
         </div>
-        <button type="submit" class="btn-primary">Continue</button>
+        <button type="submit" class="btn-primary">
+            <span class="ms htmx-indicator spin" style="margin-right:6px;vertical-align:-0.18em">progress_activity</span>
+            Continue
+        </button>
     </form>
 </div>

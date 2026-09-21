@@ -1,7 +1,8 @@
 {% load num_format %}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="stats-root"
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="stats-root" style="position:relative" data-load-once
      hx-get="{% url 'voting:dashboard_stats' %}"
      hx-trigger="every 5s" hx-swap="outerHTML">
+    <div class="loading-bar htmx-indicator" aria-hidden="true"></div>
     <div class="rounded-lg border border-border-subtle bg-surface-card p-4 flex flex-col justify-between hover:border-primary/30 transition-all">
         <span class="font-label-sm text-xs uppercase tracking-wider text-text-secondary">Eligible Voters</span>
         <div class="my-2">
